@@ -1,0 +1,432 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Ektron.Cms.Content
+</name>
+</assembly>
+<members>
+<member name="M:Ektron.Cms.WebReference.EktronAsyncProcessorWS.#ctor">
+	<remarks/>
+</member><member name="E:Ektron.Cms.WebReference.EktronAsyncProcessorWS.QueueExecFromFileCompleted">
+	<remarks/>
+</member><member name="E:Ektron.Cms.WebReference.EktronAsyncProcessorWS.QueueExecCompleted">
+	<remarks/>
+</member><member name="E:Ektron.Cms.WebReference.EktronAsyncProcessorWS.ViewLogFileCompleted">
+	<remarks/>
+</member><member name="M:Ektron.Cms.WebReference.EktronAsyncProcessorWS.QueueExecFromFile(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+	<remarks/>
+</member><member name="M:Ektron.Cms.WebReference.EktronAsyncProcessorWS.BeginQueueExecFromFile(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.AsyncCallback,System.Object)">
+	<remarks/>
+</member><member name="M:Ektron.Cms.WebReference.EktronAsyncProcessorWS.EndQueueExecFromFile(System.IAsyncResult)">
+	<remarks/>
+</member><member name="M:Ektron.Cms.WebReference.EktronAsyncProcessorWS.QueueExecFromFileAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+	<remarks/>
+</member><member name="M:Ektron.Cms.WebReference.EktronAsyncProcessorWS.QueueExecFromFileAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Object)">
+	<remarks/>
+</member><member name="M:Ektron.Cms.WebReference.EktronAsyncProcessorWS.QueueExec(System.String,System.String)">
+	<remarks/>
+</member><member name="M:Ektron.Cms.WebReference.EktronAsyncProcessorWS.BeginQueueExec(System.String,System.String,System.AsyncCallback,System.Object)">
+	<remarks/>
+</member><member name="M:Ektron.Cms.WebReference.EktronAsyncProcessorWS.EndQueueExec(System.IAsyncResult)">
+	<remarks/>
+</member><member name="M:Ektron.Cms.WebReference.EktronAsyncProcessorWS.QueueExecAsync(System.String,System.String)">
+	<remarks/>
+</member><member name="M:Ektron.Cms.WebReference.EktronAsyncProcessorWS.QueueExecAsync(System.String,System.String,System.Object)">
+	<remarks/>
+</member><member name="M:Ektron.Cms.WebReference.EktronAsyncProcessorWS.ViewLogFile(System.String)">
+	<remarks/>
+</member><member name="M:Ektron.Cms.WebReference.EktronAsyncProcessorWS.BeginViewLogFile(System.String,System.AsyncCallback,System.Object)">
+	<remarks/>
+</member><member name="M:Ektron.Cms.WebReference.EktronAsyncProcessorWS.EndViewLogFile(System.IAsyncResult)">
+	<remarks/>
+</member><member name="M:Ektron.Cms.WebReference.EktronAsyncProcessorWS.ViewLogFileAsync(System.String)">
+	<remarks/>
+</member><member name="M:Ektron.Cms.WebReference.EktronAsyncProcessorWS.ViewLogFileAsync(System.String,System.Object)">
+	<remarks/>
+</member><member name="M:Ektron.Cms.WebReference.EktronAsyncProcessorWS.CancelAsync(System.Object)">
+	<remarks/>
+</member><member name="T:Ektron.Cms.WebReference.EktronAsyncProcessorWS">
+	<remarks/>
+</member><member name="T:Ektron.Cms.WebReference.QueueExecFromFileCompletedEventHandler">
+	<remarks/>
+</member><member name="P:Ektron.Cms.WebReference.QueueExecFromFileCompletedEventArgs.Result">
+	<remarks/>
+</member><member name="T:Ektron.Cms.WebReference.QueueExecFromFileCompletedEventArgs">
+	<remarks/>
+</member><member name="T:Ektron.Cms.WebReference.QueueExecCompletedEventHandler">
+	<remarks/>
+</member><member name="P:Ektron.Cms.WebReference.QueueExecCompletedEventArgs.Result">
+	<remarks/>
+</member><member name="T:Ektron.Cms.WebReference.QueueExecCompletedEventArgs">
+	<remarks/>
+</member><member name="T:Ektron.Cms.WebReference.ViewLogFileCompletedEventHandler">
+	<remarks/>
+</member><member name="P:Ektron.Cms.WebReference.ViewLogFileCompletedEventArgs.Result">
+	<remarks/>
+</member><member name="T:Ektron.Cms.WebReference.ViewLogFileCompletedEventArgs">
+	<remarks/>
+</member><member name="M:Ektron.Cms.Content.EkContent.UpdateFolderTaxonomies(System.Int64,System.Collections.Generic.List{System.Int64})">
+	<summary>
+ Updates the taxonomies assigned to a folder
+ </summary>
+	<param name="folderid">the folder to assign taxonomies to</param>
+	<param name="TaxonomiesIdList">the tanomiesId list to be assigned</param>
+	<remarks>This method will set a list of taxonomies to a folder. If the folder has folder 
+ inheritance, it will remove the setting and duplicate the taxonomies previously set by
+ inheritance.
+ </remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.GetMembershipUnassignedPermissionList(System.Int64,System.String,Ektron.Cms.PagingInfo)">
+	<summary>
+ Retrieve list of membership users\groups that are NOT assigned permissions to a piece of content or folder.
+ </summary>
+	<param name="itemId">ContentId or FolderId to retrieve unassigned permissions for</param>
+	<param name="requestType">Should be Content or Folder</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.GetCmsUnassignedPermissionList(System.Int64,System.String,Ektron.Cms.PagingInfo)">
+	<summary>
+ Retrieve list of cms users\groups that are NOT assigned permissions to a piece of content or folder.
+ </summary>
+	<param name="itemId">ContentId or FolderId to retrieve unassigned permissions for</param>
+	<param name="requestType">Should be Content or Folder</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.GetUnassignedPermissionList(System.Int64,System.String,Ektron.Cms.Common.EkEnumeration.UserTypes,Ektron.Cms.PagingInfo,System.String)">
+	<summary>
+ Retrieve list of  users or groups or both that are NOT assigned permissions to a piece of content or folder.
+ </summary>
+	<param name="itemId">ContentId or FolderId to retrieve unassigned permissions for</param>
+	<param name="requestType">Should be Content or Folder</param>
+	<param name="pagingInfo">pagignInfo for the query</param>
+	<param name="userGroupType">The type of users\groups to retrieve - CMS, Membership, Both</param>
+	<param name="FilterType">Should be Users or Groups or All</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.GetContentByHistoryId(System.Int64)">
+	<summary>
+ Retrieves the corresponding content by the history ID.
+ </summary>
+	<param name="Id">The history ID</param>
+	<returns>Ektron.Cms.ContentData</returns>
+	<example>
+ An example of using this function can be found in the 
+ Workarea source code file: <p/>
+		<c>CMS400Example\\Workarea\\compare.aspx.vb</c>.
+ </example>
+	<remarks>Read permission required.</remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.GetXmlConfigurationData(System.Int64)">
+	<summary>
+ Loads an XML configuration based on its ID.
+ </summary>
+	<param name="Id">The XML configuration ID</param>
+	<returns>Ektron.Cms.XmlConfigData</returns>
+	<example>
+ An example of using this function can be found in the 
+ Workarea source code file: <p/>
+		<c>CMS400Example\\Workarea\\controls\\xmlconfig\\editxml_config.ascx.vb</c>.<p/>
+ The following is a code snippet from that page.<p/>
+		<code>
+    Private Sub Display_EditXmlConfig()
+        cXmlCollection = m_refContentApi.GetXmlConfiguration(m_intId)
+        If (cXmlCollection Is Nothing) Then
+            cXmlCollection = New XmlConfigData
+        End If
+        EditXmlConfigToolBar()
+        m_strTitle = cXmlCollection.Title
+        pkDisplay = cXmlCollection.PackageDisplayXslt
+    End Sub
+ </code>
+	</example>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.IndexContent(System.Int64[])">
+	<summary>
+ Reindex specified content
+ </summary>
+	<param name="IDs"></param>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.DoEndDateAction(System.Int64[],System.Int32[],System.Boolean)">
+	<summary>
+ Check content expiration
+ </summary>
+	<param name="IDs"></param>
+	<param name="langs"></param>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.UpdateMetaData(System.Int32,System.Int32,System.String)">
+	<summary>
+ Updates a single piece of content metadata
+ </summary>
+	<param name="ContentID">The content id</param>
+	<param name="MetaID">The Metadata type id</param>
+	<param name="MetaText">The new text to assign</param>
+	<returns>boolean</returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.UpdateMetadata(System.Int64,System.Int64,System.String)">
+	<summary>
+ Updates a single piece of content metadata
+ </summary>
+	<param name="contentID">The content id</param>
+	<param name="metadataId">The Metadata type id</param>
+	<param name="metaText">The new text to assign</param>
+	<returns>boolean</returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.DeleteCollectionItem(System.Int64)">
+	<summary>
+ Deletes the collection.
+ </summary>
+	<param name="nID">collection id</param>
+	<returns>return false if successful otherwise it will throw an error</returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.CheckoutEcmCollection(System.Int64)">
+	<summary>
+ Checkout the collection to edit
+ </summary>
+	<param name="collectionId">Collection Id</param>
+	<returns>Return false if successful otherwise it will throw an error</returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.UndoCheckoutEcmCollection(System.Int64)">
+	<summary>
+ Undo Checkout the collection. All changes will be ignored.
+ </summary>
+	<param name="collectionId">Collection Id</param>
+	<returns>Return false if successful otherwise it will throw an error</returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.PublishEcmCollection(System.Int64)">
+	<summary>
+ Publishs the collection
+ </summary>
+	<param name="collectionId">Collection Id</param>
+	<returns>Return false if successful otherwise it will throw an error</returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.SubmitEcmCollection(System.Int64)">
+	<summary>
+ Submit the collection to approvers to publish.
+ </summary>
+	<param name="collectionId">Collection Id</param>
+	<returns>Return false if successful otherwise it will throw an error</returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.SubmitDeleteEcmCollection(System.Int64)">
+	<summary>
+ Submit the collection to approvers to delete.
+ </summary>
+	<param name="collectionId">Collection Id</param>
+	<returns>Return false if successful otherwise it will throw an error</returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.ApprovalDeclineEcmCollection(System.Int64,System.String)">
+	<summary>
+ Changes are decline for the collection. 
+ </summary>
+	<param name="collectionId">Collection Id</param>
+	<param name="reason">Decline message will be appended to the email body.</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.DeleteDeclineEcmCollection(System.Int64,System.String)">
+	<summary>
+ Deletion of the collection decline.
+ </summary>
+	<param name="collectionId">Collection Id</param>
+	<param name="reason">Decline message will be appended to the email body.</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.GetMetadataByFolder(System.Int64)">
+	<summary>
+ Returns a collection of ContentMetadata assigned to a folder.
+ </summary>
+	<param name="folderId">folder to retrieve metadata for</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.GetMetadataByFolder(System.Int64,System.Int64)">
+	<summary>
+ Returns a collection of ContentMetadata assigned to a folder.
+ </summary>
+	<param name="folderId">folder to retrieve metadata for</param>
+	<param name="languageId">language of metadata to retrieve.</param>
+	<returns>collection of ContentMetadata objects</returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.GetCommunityGroupIdForTopic(System.Int64)">
+	<summary>
+ Gets Id of communityGroup associated with a disccussioboard for the supplied topic id.
+ </summary>
+	<param name="topicId"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.GetSupportedPlayer(System.String)">
+	<summary>
+ Gets the supported media players name from the web.config that supports specified mime type.
+ </summary>
+	<param name="MimeType">Asset Mime type</param>
+	<returns>List of media players</returns>
+	<remarks>
+ Example Web.config
+ <mediaSettings>
+			<add key="audio/x-wav" value="WindowsMedia, Quicktime, Realplayer"/>
+			<add key="audio/x-wav-default" value="WindowsMedia"/>
+			<add key="video/x-avi" value="WindowsMedia, Quicktime, Realplayer"/>
+			<add key="video/x-avi-default" value="Quicktime"/>
+		</mediaSettings>
+	</remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.CreateMultimediaSnippetHtml(System.String@,System.Int64,System.Boolean)">
+	<summary>
+ Each media can be associated with multiple object. All object tags are stored in XML.
+ This method takes the XML and creats HTML that can be safely render on the page.
+ </summary>
+	<param name="Xml">XML String</param>
+	<param name="id">Content Id</param>
+	<returns>String</returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.PurgeTemplate(System.Int64)">
+	<summary>
+ Be really careful calling this - it should only be called if there are no folders or content blocks referencing that template.
+ </summary>
+	<param name="template_id"></param>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.RotateAssetImage(System.Int64,System.Int32)">
+	<summary>
+ rotates a DMS asset image (used for myphotos area)
+ </summary>
+	<param name="contentid">content ID of image to rotate</param>
+	<param name="angle">angle of rotation: 90 for CW, -90 for CCW</param>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.CopyAssetImageThumbnail(System.Int64,System.Int64)">
+	<summary>
+ Copies all thumbnail info for asset image after DMS' "copy" function has run left photo gallery stuff broken
+ </summary>
+	<param name="oldcontentid">from content ID</param>
+	<param name="newcontentid">to content ID</param>
+	<remarks>Photo Gallery image info is separate from DMS asset management 
+ so that's why we do copying of miscellaneous photo gallery stuff here</remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.AddDistributionRelationship(System.Int64,System.Int64,System.Int32)">
+	<summary>
+ Adds a distribution relationship between a piece of source content and destination content.
+ This is used for distributing community content to the cms as a whole.
+ </summary>
+	<param name="sourceContentId">Id of the source content</param>
+	<param name="destinationContentId">Id of the content after it was distributed to new location.</param>
+	<param name="languageId">language of the content that was distributed.</param>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.AddDistributionRelationship(System.Guid,System.Int64,System.Int64,System.Int32)">
+	<summary>
+ Adds a distribution relationship between a piece of source content and destination content.
+ This is used for distributing  a piece of sharepoint content to the CMS.
+ </summary>
+	<param name="sharepointListId">Id of the source sharepoint list</param>
+	<param name="sharepointItemId">Id of the source sharepoint content</param>
+	<param name="destinationContentId">Id of the content after it was distributed to CMS.</param>
+	<param name="languageId">language of the content that was distributed.</param>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.DeleteDistributionRelationship(System.Int64,System.Int32)">
+	<summary>
+ Deletes a distribution relationship between a piece of source community content and destination content.
+ This is used for distributing  a piece of sharepoint content to the CMS.  This method breaks that relationship.
+ </summary>
+	<param name="sourceContentId">Id of the source content</param>
+	<param name="languageId">language of the content that was distributed.</param>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.DeleteDistributionRelationship(System.Guid,System.Int64,System.Int32)">
+	<summary>
+ Deletes a distribution relationship between a piece of source sharepoint content and destination content.
+ This is used for distributing a piece of sharepoint content to the CMS.
+ </summary>
+	<param name="sharepointListId">Id of the source sharepoint list</param>
+	<param name="sharepointItemId">Id of the source sharepoint content</param>
+	<param name="languageId">language of the content that was distributed.</param>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.GetDestinationContentId(System.Int64)">
+	<summary>
+ Gets the Id of a piece of community content that was distributed to a CMS Folder.
+ </summary>
+	<param name="sourceContentId">Id of the source community content</param>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.GetDestinationContentId(System.Guid,System.Int64)">
+	<summary>
+ Gets the Id of a piece of sharepoint content that was distributed to a CMS Folder.
+ </summary>
+	<param name="sharepointListId">Id of the source sharepoint list</param>
+	<param name="sharepointItemId">Id of the source sharepoint content</param>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.GetSourceContentId(System.Int64)">
+	<summary>
+ Gets the Id of a piece of source content that was distributed to a CMS Folder.
+ </summary>
+	<param name="destinationContentId">Id of the destination CMS content</param>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.GetSourceSharepointId(System.Int64)">
+	<summary>
+ Gets the Id of a piece of source sharepoint content that was distributed to a CMS Folder.
+ </summary>
+	<param name="destinationContentId">Id of the destination CMS content</param>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.GetFolderIdForContentId(System.Int64)">
+	<summary>
+ Gets folder id associated with given content Id.
+ </summary>
+	<param name="contentId">Id of the CMS content</param>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.GetContentList(Ektron.Cms.Common.Criteria{Ektron.Cms.Common.ContentProperty})">
+	<summary>
+ Returns a list of content based upon the supplied criteria.
+ </summary>
+	<param name="criteria">criteria used to restrict content retrieval.</param>
+	<returns></returns>
+	<remarks>Workarea Readable permissions are not enforced.  This function assumes site display.  Proviate content permissions are alway enforced.</remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.GetContentList(Ektron.Cms.Common.Criteria{Ektron.Cms.Common.ContentProperty},System.Boolean)">
+	<summary>
+ Returns a list of content based upon the supplied criteria.
+ </summary>
+	<param name="criteria">criteria used to restrict content retrieval.</param>
+	<param name="folderRecursive">If true, retrieves all recursive folders based upon folderId in criteria filter.  This parameter is only relative if the criteria includes a FolderId filter.</param>
+	<returns></returns>
+	<remarks>Workarea Readable permissions are not enforced.  This function assumes site display.  Proviate content permissions are alway enforced.</remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.GetContentList(Ektron.Cms.Common.Criteria{Ektron.Cms.Common.ContentProperty},System.Boolean,System.Boolean)">
+	<summary>
+ Returns a list of contnet based upon the supplied criteria.
+ </summary>
+	<param name="criteria">criteria used to restrict content retrieval.</param>
+	<param name="folderRecursive">If true, retrieves all recursive folders based upon folderId in criteria filter.  This parameter is only relative if the criteria includes a FolderId filter.</param>
+	<param name="filterNonReadableContent">if true, will restrict content list to only content readable by current user in workarea based upon user permisisons.
+ Private content is always filtered based upon permissions.</param>
+	<returns></returns>
+</member><member name="M:Ektron.Cms.Content.EkContent.ModifyAttributeValue(System.String,System.String,System.String,System.String)">
+	<summary> 
+ Searches an HTML string for attribute (specified) within a tag and inserts the new text after the " 
+ </summary>
+	<param name="originalText">Original HTML</param>
+	<param name="tagName">Name of the tag i.e. img </param>
+	<param name="attribute">Name of the attribute within the tag, i.e. src</param>
+	<param name="insertionString">Text to insert after the ="</param>
+	<returns>Modified HTML</returns>
+</member><member name="M:Ektron.Cms.Content.EkContent.GetLatestContentById(System.Int32)">
+	<summary>
+ Returns the latest version of the content based upon the supplied Id.  If there is a staged version, that version is returned, else the published version is returned.
+ </summary>
+	<param name="Id">Id of the content to retrieve.</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkContent.GetLatestContentById``1(System.Int32)">
+	<summary>
+ Returns the latest version of the content based upon the supplied Id.  If there is a staged version, that version is returned, else the published version is returned.
+ </summary>
+	<typeparam name="T">The ContentData type to return.  i.e. ContentData, EventData, etc.</typeparam>
+	<param name="id">Id of the content to retrieve.</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.EkThreads.URLCheckerClass.MainThread(System.Web.HttpContext)">
+	<summary>
+ This is where we do the grunt work of dynamic replication (aka quick deploy).
+ </summary>
+	<remarks></remarks>
+</member><member name="T:Ektron.Cms.Content.EkThreads">
+	<summary>
+ Code that runs in background threads in CMS400
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Content.PrivateMessage.GetList(Ektron.Cms.Common.Criteria{Ektron.Cms.PrivateMessageProperty})">
+	<summary>
+ Returns a list of private messages based upon the supplied criteria.
+ </summary>
+	<param name="criteria">criteria used to restrict message retrieval.</param>
+	<returns></returns>
+	<remarks></remarks>
+</member>
+</members>
+</doc>
