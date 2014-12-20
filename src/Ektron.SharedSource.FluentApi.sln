@@ -3,11 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ektron.SharedSource.FluentApi", "Ektron.SharedSource.FluentApi.csproj", "{EDD3BAFA-A85C-40A8-B372-672D3CEB12D9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ektron.SharedSource.FluentApi", "Ektron.SharedSource.FluentApi\Ektron.SharedSource.FluentApi.csproj", "{EDD3BAFA-A85C-40A8-B372-672D3CEB12D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ektron.SharedSource.FluentApi.Tests", "..\Ektron.SharedSource.FluentApi.Tests\Ektron.SharedSource.FluentApi.Tests.csproj", "{382E79C6-F49B-40B3-849E-9734CB0EA0CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ektron.SharedSource.FluentApi.Tests", "Ektron.SharedSource.FluentApi.Tests\Ektron.SharedSource.FluentApi.Tests.csproj", "{382E79C6-F49B-40B3-849E-9734CB0EA0CD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9589F089-DBB5-44BE-935D-94E8FC4353DA}"
+	ProjectSection(SolutionItems) = preProject
+		Settings.StyleCop = Settings.StyleCop
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
