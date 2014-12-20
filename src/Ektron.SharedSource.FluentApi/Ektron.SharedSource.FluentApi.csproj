@@ -37,6 +37,18 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ektron.Cms.Common">
+      <HintPath>..\..\lib\Ektron.9.1.0.184\Ektron.Cms.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Content">
+      <HintPath>..\..\lib\Ektron.9.1.0.184\Ektron.Cms.Content.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Contracts">
+      <HintPath>..\..\lib\Ektron.9.1.0.184\Ektron.Cms.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Framework">
+      <HintPath>..\..\lib\Ektron.9.1.0.184\Ektron.Cms.Framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentCollectionCriteriaExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
