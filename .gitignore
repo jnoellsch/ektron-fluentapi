@@ -6,3 +6,4 @@
 /src/Ektron.SharedSource.FluentApi/obj/Debug
 /src/Ektron.SharedSource.FluentApi.Tests/obj/Debug
 /src/Ektron.SharedSource.FluentApi.Tests/bin/Debug
+*.Cache

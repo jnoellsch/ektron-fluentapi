@@ -4,13 +4,15 @@
 
     public static class ContentCollectionCriteriaExtensions
     {
-        public static ContentCollectionCriteria ByCollection(this ContentCollectionCriteria criteria, long? collectionId)
+        public static ContentCollectionCriteria ByCollection(this ContentCollectionCriteria criteria, long id)
         {
-            if (collectionId.HasValue)
-            {
-                criteria.AddFilter(collectionId.Value);
-            }
+            criteria.AddFilter(id);
+            return criteria;
+        }
 
+        public static ContentCollectionCriteria ByCollection(this ContentCollectionCriteria criteria, string name)
+        {
+            criteria.AddFilter(name);
             return criteria;
         }
 

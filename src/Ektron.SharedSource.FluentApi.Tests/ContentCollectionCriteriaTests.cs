@@ -5,22 +5,35 @@
 
     public class ContentCollectionCriteriaTests
     {
+        public class IntegrationValidation
+        {
+            public void Exercise()
+            {
+                var sut = new ContentCollectionCriteria()
+                    .ByCollection(10)
+                    .Ordered();
+            }    
+        }
+
+        [TestFixture]
         public class ByCollectionMethod
         {
-            [Test]
-            public void SetsFilterIfInteger()
+            [TestCase(5)]
+            public void SetsFilterIfInteger(int id)
             {
-                var sut = new ContentCollectionCriteria().ByCollection(5);
+                var sut = new ContentCollectionCriteria().ByCollection(id);
                 
                 Assert.AreEqual(1, sut.CollectionGroupFilters.Count);
-                Assert.AreEqual(5, sut.CollectionGroupFilters[0].Filters[0].Value);
+                Assert.AreEqual(id, sut.CollectionGroupFilters[0].Filters[0].Value);
             }
 
-            [Test]
-            public void SkipsFilterIfNull()
+            [TestCase("Test Name")]
+            public void SetsFilterIfName(string name)
             {
-                var sut = new ContentCollectionCriteria().ByCollection(null);
-                Assert.AreEqual(0, sut.CollectionGroupFilters.Count);
+                var sut = new ContentCollectionCriteria().ByCollection(name);
+
+                Assert.AreEqual(1, sut.CollectionGroupFilters.Count);
+                Assert.AreEqual(name, sut.CollectionGroupFilters[0].Filters[0].Value);
             }
         }
 
