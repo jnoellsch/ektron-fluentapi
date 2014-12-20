@@ -1,0 +1,610 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Ektron.Cms.Common
+</name>
+</assembly>
+<members>
+<member name="P:Ektron.Cms.XmlConfigData.FieldList">
+	<summary>
+ Returns the field definitions as XML. The definition includes field names, data types, XPath and more, including data list values.
+ </summary>
+	<value>XML as a string</value>
+	<remarks>See WorkArea\ewebeditpro\DesignToFieldList.xslt for an example.</remarks>
+</member><member name="T:Ektron.Cms.EkXml">
+	<summary>
+ Helper class to make working with XML much easier in the common cases.
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Ektron.Cms.Common.EkRequestInformation.AuthenticationToken">
+	<summary>
+ Gets or sets the user AuthenticationToken for the current request. This is neccessary for making API calls on behalf of a validated user.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Ektron.Cms.Common.EkRequestInformation.UserTimeZone">
+	<summary>
+ To get the actual TimeZoneInfo object from this call TimeZoneInfo.GetTimeZoneInfo(UserTimeZone)
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Ektron.Cms.Common.EkRequestInformation.IsDirty">
+	<summary>
+ When IsDirty is true, the ekRequestinformation will refresh the to its new state.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Ektron.Cms.Common.EkRequestInformation.ShowBorders">
+	<summary>
+ States whether or not to display the toolbar borders when logged in.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks>Should be set through the common API SetShowBorders(bool) function.</remarks>
+</member><member name="P:Ektron.Cms.Common.EkRequestInformation.EnableMessaging">
+	<summary>
+ States whether or not to email messaging is enable in CMS.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Ektron.Cms.Common.AnalyticsSettings.SuppressBeacon">
+	<summary>
+ Gets or sets whether the provider beacon is suppressed for a given user type.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Ektron.Cms.Common.CommerceSettings.TestMode">
+	<summary>
+ Gets or sets the default currency Id.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Ektron.Cms.Common.CommerceSettings.SendOrderReceivedEmailToAdmin">
+	<summary>
+ Gets or sets the boolean to send  an e-mail to admin after an order is placed
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Ektron.Cms.Common.CommerceSettings.ApplyTaxestoShipping">
+	<summary>
+ Gets or sets the boolean to apply taxes to the shipping costs
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Ektron.Cms.Common.CommerceSettings.DefaultCurrencyId">
+	<summary>
+ Gets or sets the default currency Id.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Ektron.Cms.Common.CommerceSettings.CurrencyId">
+	<summary>
+ Gets or sets the current currency Id for the request.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Ektron.Cms.Common.CommerceSettings.CurrencyCultureCode">
+	<summary>
+ Gets or sets the culture code associated with the current currency.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Ektron.Cms.Common.CommerceSettings.CurrencyAlphaISO">
+	<summary>
+ Gets or sets the Alpha ISO code the current currency.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Ektron.Cms.Common.CommerceSettings.ISOCurrencySymbol">
+	<summary>
+ Read only function that gets the symbol for this currency.
+ Example: $
+ </summary>
+	<returns>Currency symbol for the currency, for example $</returns>
+</member><member name="P:Ektron.Cms.Common.CommerceSettings.CurrencySymbol">
+	<summary>
+ Read only function that gets the ISO symbol for this currency.
+ Example: USD
+ </summary>
+	<returns>ISO symbol for the currency, for example USD</returns>
+</member><member name="P:Ektron.Cms.Common.CommerceSettings.ComplianceMode">
+	<summary>
+ Gets or sets compliance mode.
+ </summary>
+	<returns>Boolean</returns>
+</member><member name="P:Ektron.Cms.Common.CommerceSettings.OrderProcessingDisabled">
+	<summary>
+ Gets or sets whether order processing is disabled (eSynch).
+ </summary>
+	<returns>Boolean</returns>
+</member><member name="P:Ektron.Cms.Common.CommerceSettings.PasswordHistory">
+	<summary>
+ Gets or sets the number of previous passwords to store for a user.
+ </summary>
+	<returns>Boolean</returns>
+</member><member name="P:Ektron.Cms.Common.CommerceSettings.ApplyDefaultRegion">
+	<summary>
+ Gets or sets the default region.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Ektron.Cms.Common.ActiveDirectorySettings.AdvancedConfig">
+	<summary>
+ Gets or sets whether Active Directory Advanced Mode is on.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Ektron.Cms.Common.ActiveDirectorySettings.Authentication">
+	<summary>
+ Gets or sets whether Active Directory Authentication is on.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Ektron.Cms.Common.ActiveDirectorySettings.AutoUserAddType">
+	<summary>
+ Gets or sets the AutoAddType for Active Directory integrated users
+ Not applicable if members are not AD integrated, as all users will be added as authors.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Common.EkFunctions.GetURLBase(System.String,System.Int32,System.Boolean,System.Int32)">
+	<summary>
+ Returns the full base of a web address. Examples:
+ http://www.ektron.com/
+ https://www.ektron.com/
+ http://www.ektron.com:88/
+ </summary>
+	<param name="Port"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Common.EkFunctions.XmlSafe(System.String)">
+	<summary>
+ Utility function to simply making text XML safe
+ </summary>
+	<param name="str"></param>
+</member><member name="M:Ektron.Cms.Common.EkFunctions.FormatCurrency(System.Decimal,System.String)">
+	<summary>
+ Formats the given price based upon the supplied culture code.  For example, 10.50, en-Us would result in $10.50.
+ </summary>
+	<param name="price">price value to format</param>
+	<param name="cultureCode">culture code to format for.</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Common.EkFunctions.GetCurrencyCharacter(System.String)">
+	<summary>
+ Returns a currency character for supplied culture.
+ </summary>
+	<param name="cultureCode">culture code to retrieve currency character for.</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Common.EkFunctions.FormatPercent(System.Decimal,System.String)">
+	<summary>
+ Formats the given percent based upon the supplied culture code.  For example, 10.50, en-Us would result in 10.50%.
+ </summary>
+	<param name="percent">percent value to format</param>
+	<param name="cultureCode">culture code to format for.</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Common.EkFunctions.HtmlEncode(System.String)">
+	<summary>
+ HTML encodes &amp;, &lt;, &gt;, and " rather than the more extensive list of characters encoded by .NET.
+ This matches the HtmlEncode() method in ektron.string.js.
+ </summary>
+	<param name="s">String to encode</param>
+	<returns>String encoded for HTML or XML</returns>
+	<remarks>.NET's HtmlEncode does too much, namely, single-byte special chars (e.g., spanish n), are converted to char ref.</remarks>
+</member><member name="M:Ektron.Cms.Common.EkFunctions.RemoveHTML(System.String)">
+	<summary>
+ Returns formatted HTML.
+ </summary>
+	<param name="strText">An unformatted HTML string.</param>
+	<returns>
+ String
+ </returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Common.EkFunctions.GetTimeLapse(System.DateTime,Ektron.Cms.Common.EkRequestInformation)">
+	<summary> 
+ Gets the time lapse
+ </summary>
+</member><member name="M:Ektron.Cms.Common.EkFunctions.getContentTypeIconAspx(System.Int32,Microsoft.VisualBasic.Collection,System.String)">
+	<summary>
+ get the icon for the content type
+ </summary>
+	<param name="ContentTypeID">content type</param>
+	<param name="colContent">VB collection contains "ContentSubType" and "ImageUrl" (as its icon path).</param>
+	<param name="appPath">application path to locate the icon</param>
+	<returns>image tag for the icon</returns>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.Common.EkFunctions.CountWords(System.String)">
+	<summary>
+ Estimates the word count of text with space-delimited words. XML and HTML tags (and their attributes) are excluded.
+ Numbers, punctuation, etc. are included (this is a quick estimate, but not very accurate).
+ </summary>
+	<param name="text">The text with words to count</param>
+	<returns>A rough estimate of the number of words</returns>
+	<remarks>Returns erroneous results for languages that do not separate words with spaces.</remarks>
+</member><member name="M:Ektron.Cms.Common.EkFunctions.URLLinkFormat(System.Text.RegularExpressions.Match)">
+	<summary>
+ If the Match object passed in is a matches the falsePositivePattern Regex, the original match is returned as a string. Otherwise it returns a formatted anchor tag based on the original match.
+ </summary>
+	<param name="m">The regular expression match to check.</param>
+	<returns>The original match as text or an anchor tag based on the match.</returns>
+</member><member name="M:Ektron.Cms.Common.EkFunctions.EmailAddressFormat(System.Text.RegularExpressions.Match)">
+	<summary>
+ Method returns a formated string for a mailto: link
+ </summary>
+	<param name="m">Match genersated by Regular Expression object</param>
+	<returns>mailto anchor tag based on the original Match text.</returns>
+</member><member name="M:Ektron.Cms.Common.EkFunctions.ConvertUrls(System.String)">
+	<summary>
+ Searches through a given string and looks for URLs embedded in the text. Any URLs found are converted to anchor tags based on that URL.
+ </summary>
+	<param name="stringIn">The string to search for URLs.</param>
+	<returns>A string where all URLs have been converted to links based on the URLs found.</returns>
+</member><member name="M:Ektron.Cms.Common.EkFunctions.IsValidDMSWhiteListExtension(System.String)">
+	<summary>
+ Used for checking if the extensions being added by a user in the assetconfig setup are in the master whitelist of extensions in the web.config.
+ The key to change in the web.config is ek_DMSFileTypeWhiteList to add or remove extensions.
+ </summary>
+	<param name="extensions">Comma delimited list of extensions to be checked.</param>
+	<returns>A boolean of whether or not the list of provided extensions can be added.</returns>
+	<remarks>If false is returned, suggest looking at what extensions are being added that are not in the whitelist.</remarks>
+</member><member name="M:Ektron.Cms.Common.EkFunctions.IsValidLibWhiteListExtension(System.String)">
+	<summary>
+ Used for checking if the extensions being added by a user in the library setup are in the master whitelist of extensions in the web.config.
+ The key to change in the web.config is ek_LibFileTypeWhiteList to add or remove extensions.
+ </summary>
+	<param name="extensions">Comma delimited list of extensions to be checked.</param>
+	<returns>A boolean of whether or not the list of provided extensions can be added.</returns>
+	<remarks>If false is returned, suggest looking at what extensions are being added that are not in the whitelist.</remarks>
+</member><member name="M:Ektron.Cms.Common.ReplaceDomainsLinks.ReplaceStagingLinks(System.String@,System.String@)">
+	<summary>
+ Does a regex match to find links with the staging domain in the URL and replaces the staging domain part of the url with the production domain
+ </summary>
+	<param name="ContentHtml">The content html to be parsed</param>
+	<param name="ContentTeaser">The content teaser to be parsed</param>
+	<remarks>For use when publishing content on a server marked as a staging server to make sure content does not contain staging domain links in the database</remarks>
+</member><member name="M:Ektron.Cms.Common.ReplaceDomainsLinks.ReplaceProductionLinks(System.String@,System.String@)">
+	<summary>
+ Does a regex match to find links with the production domain in the URL and replaces the production domain part of the url with the staging domain
+ </summary>
+	<param name="ContentHtml">The content html to be parsed</param>
+	<param name="ContentTeaser">The content teaser to be parsed</param>
+	<remarks>For use on a staging domain to replace links in content to production domain items with their corresponding staging domain link</remarks>
+</member><member name="M:Ektron.Cms.EkException.ThrowException(System.Exception)">
+ --------------------------------------------------------------------------------
+ <summary>
+ Throws a friendly and helpful error message.
+ Only use this function to process UNEXPECTED errors.
+ To detect unexpected errors, set a break point in this function.
+ </summary>
+	<param name="ex">
+ 	The exception object from the Catch statement (see example). 
+ 	Value Type: <see cref="T:System.Exception"/> (System.Exception)
+ </param>
+	<remarks>
+ Example: 
+ Try
+     ' Your code here
+ Catch ex as Exception
+     EkException.ThrowException(ex)
+ Finally
+     ' Your code here
+ End Try
+ 
+ Format of message:
+ "ex.Message [AssemblyName.MethodName:line n]"
+ </remarks>
+ --------------------------------------------------------------------------------
+
+</member><member name="M:Ektron.Cms.EkException.LogException(System.Exception)">
+	<summary>
+ Logs the exception to the event log.
+ </summary>
+	<param name="ex">Exception to log.</param>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.EkException.LogException(System.String)">
+	<summary>
+ Logs the exception to the event log.
+ </summary>
+	<param name="Message">Write Exception message to Event log.</param>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.EkException.LogException(System.Data.SqlClient.SqlException)">
+	<summary>
+ Logs the exception to the event log.
+ </summary>
+	<param name="ex">Exception to write to event log</param>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.EkException.LogException(System.Data.SqlClient.SqlError)">
+	<summary>
+ Logs the SqlError to the event log.
+ </summary>
+	<param name="sqlerror">Error to write to event log</param>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.EkException.LogException(System.Exception,System.Diagnostics.EventLogEntryType)">
+	<summary>
+ Logs the exception to the event log using the supplied EventLogEntryType.
+ </summary>
+	<param name="ex">Exception to log.</param>
+	<param name="EventType"></param>
+	<remarks></remarks>
+</member><member name="M:Ektron.Cms.EkException.ErrorLine(System.Exception)">
+ --------------------------------------------------------------------------------
+ <summary>
+ Returns a friendly message showing the module and line number that raised the exception.
+ </summary>
+	<param name="ex">
+ 	The exception object from the Catch statement (see example). 
+ 	Value Type: <see cref="T:System.Exception"/> (System.Exception)
+ </param>
+	<returns>String with the AssemblyName, MethodName and line number.	<see cref="T:System.String"/> (System.String)</returns>
+	<remarks>
+ Format of message:
+ " [AssemblyName.MethodName:line n]"
+ </remarks>
+ --------------------------------------------------------------------------------
+
+</member><member name="M:Ektron.Cms.EkException.WriteToEventLog(System.String,System.Diagnostics.EventLogEntryType)">
+	<summary>
+ Writes the entry (message) to the Application Event Log.
+ </summary>
+	<param name="Entry">Message to log into event log</param>
+	<param name="EventType">Log entry type [Error | Warning | Information]</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:Ektron.Cms.EkException">
+ *******************************************************************************
+ 	Copyright 2005-2006	Ektron, Inc. All rights reserved.
+ *******************************************************************************
+ 
+ <summary>
+ Helper functions to process exception handling and provide for faster debugging.
+ </summary>
+	<remarks>
+	</remarks>
+ --------------------------------------------------------------------------------
+
+</member><member name="T:Ektron.Cms.Common.EkEnumeration.TaxonomyConfiguration">
+	<summary>
+ Enumeration used to define what type of objects can be applied to a taxonomy.
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Ektron.Cms.Common.EkEnumeration.TaxonomyType.Content">
+	<summary>
+ This is the general content, user, group taxonomies used throught the CMS.
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Ektron.Cms.Common.EkEnumeration.TaxonomyType.User">
+	<summary>
+ This is not for public taxonomies containing users, but rather hidden community taxonomies used for categorizing user's personal data.
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Ektron.Cms.Common.EkEnumeration.TaxonomyType.Group">
+	<summary>
+ This is not for public taxonomies containing groups, but rather hidden community taxonomies used for categorizing a community groups's data.
+ </summary>
+	<remarks></remarks>
+</member><member name="T:Ektron.Cms.Common.EkEnumeration.TaxonomyType">
+	<summary>
+ Enumeration used to identify a type of taxonomy.
+ </summary>
+	<remarks></remarks>
+</member><member name="T:Ektron.Cms.Common.EkEnumeration.UserAuthenticationType">
+	<summary>
+ Enumeration of external authentication types supported by the CMS out of the box.
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Ektron.Cms.Common.EkEnumeration.CMSContentType.AllTypes">
+	<summary>
+ Any Type
+ </summary>
+</member><member name="F:Ektron.Cms.Common.EkEnumeration.CMSContentType.Undefined">
+	<summary>
+ Value is undefined.
+ </summary>
+</member><member name="F:Ektron.Cms.Common.EkEnumeration.CMSContentType.Content">
+	<summary>
+ Content Type
+ </summary>
+</member><member name="F:Ektron.Cms.Common.EkEnumeration.CMSContentType.Forms">
+	<summary>
+ Form Type
+ </summary>
+</member><member name="F:Ektron.Cms.Common.EkEnumeration.CMSContentType.Archive_Content">
+	<summary>
+ Archive Content Type
+ </summary>
+</member><member name="F:Ektron.Cms.Common.EkEnumeration.CMSContentType.Archive_Forms">
+	<summary>
+ Archive Forms Type
+ </summary>
+</member><member name="F:Ektron.Cms.Common.EkEnumeration.CMSContentType.Assets">
+	<summary>
+ Assets Type
+ </summary>
+</member><member name="F:Ektron.Cms.Common.EkEnumeration.CMSContentType.Archive_Assets">
+	<summary>
+ Archive Assets Type. 
+ Note: Archived assets can actually be any value between 1101 and 2099 depending on the actual Asset Type.
+ </summary>
+</member><member name="F:Ektron.Cms.Common.EkEnumeration.CMSContentType.LibraryItem">
+	<summary>
+ Library Item Type
+ </summary>
+</member><member name="F:Ektron.Cms.Common.EkEnumeration.CMSContentType.Multimedia">
+	<summary>
+ Multimedia Type
+ </summary>
+</member><member name="F:Ektron.Cms.Common.EkEnumeration.CMSContentType.Archive_Media">
+	<summary>
+ Archive Media Type
+ </summary>
+</member><member name="F:Ektron.Cms.Common.EkEnumeration.CMSContentType.NonLibraryContent">
+	<summary>
+ Non Library Content Type
+ </summary>
+</member><member name="F:Ektron.Cms.Common.EkEnumeration.CMSContentType.DiscussionTopic">
+	<summary>
+ Discussion Topic Type
+ </summary>
+</member><member name="F:Ektron.Cms.Common.EkEnumeration.CMSContentType.CatalogEntry">
+	<summary>
+ Catalog Entry Type
+ </summary>
+</member><member name="F:Ektron.Cms.Common.EkEnumeration.PricingType.Fixed">
+	<summary>
+ Indicates this pricing type is a fixed amount.
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Ektron.Cms.Common.EkEnumeration.PricingType.Floating">
+	<summary>
+ Indicates this pricing type is variable based upon a base currency price and current exchange rates.
+ </summary>
+	<remarks></remarks>
+</member><member name="T:Ektron.Cms.Common.EkEnumeration.ActivityObjectType">
+	<summary>
+ Enumeration of Object types that can raise an activity.
+ </summary>
+	<remarks></remarks>
+ NOTE: need to keep some values same as CMSObjectTypes because we are reusing watch_tbl
+
+</member><member name="T:Ektron.Cms.Common.EkEnumeration.ActivityActionType">
+	<summary>
+ Enumeration of Activity Action Types.
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Ektron.Cms.Common.EkEnumeration.ActivityActionSource.All">
+	<summary>
+ Indicates that the user will be notified in all instances - regardless of source.
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Ektron.Cms.Common.EkEnumeration.ActivityActionSource.Colleague">
+	<summary>
+ Indicates the user would only be notified if the activity source is a colleague.
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Ektron.Cms.Common.EkEnumeration.ActivityActionSource.CommunityGroup">
+	<summary>
+ Indicates the user would only be notified if the activity source is a Community Group the user belongs to.
+ </summary>
+	<remarks></remarks>
+</member><member name="T:Ektron.Cms.Common.EkEnumeration.ActivityActionSource">
+	<summary>
+ Enumeration of possible Activity Sources that you want to be notified on.
+ </summary>
+	<remarks></remarks>
+</member><member name="T:Ektron.Cms.Common.EkEnumeration.ActivityScope">
+	<summary>
+ Enumeration of notification scope values.  Indicates the scope in which an activity occurred.
+ For exame, within a communit group or  auser wokspace.
+ </summary>
+	<remarks></remarks>
+</member><member name="T:Ektron.Cms.Common.EkEnumeration.ActivityFeedType">
+	<summary>
+ Enumeration of possible ActivityStream types.
+ </summary>
+	<remarks></remarks>
+</member><member name="T:Ektron.Cms.Common.EkEnumeration.ActivityType">
+	<summary>
+ List of Out of the Box Activity Types defined in the CMS 400.
+ </summary>
+	<remarks></remarks>
+ NOTE:  When adding new Activity Types, be sure to add them to the activity_type table too!
+
+</member><member name="F:Ektron.Cms.Common.EkEnumeration.SiteSetting.NotificationEmailReplyPrependMessage">
+	<summary>
+ Property to determine Email Reply message should be prepended to notification email.
+ </summary>
+</member><member name="T:Ektron.Cms.Common.EkEnumeration.SiteSetting">
+	<summary>
+ Enumration of sitesettings
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Ektron.Cms.Common.AssetData.Id">
+	<summary>
+Gets or sets the asset's unique identififer 
+</summary>
+</member><member name="P:Ektron.Cms.Common.AssetData.Version">
+	<summary>
+Gets or sets the Version number 
+</summary>
+</member><member name="P:Ektron.Cms.Common.AssetData.MimeType">
+	<summary>
+Gets or sets the Mime Type 
+</summary>
+</member><member name="P:Ektron.Cms.Common.AssetData.MimeName">
+	<summary>
+Gets or sets the Mime Name
+</summary>
+</member><member name="P:Ektron.Cms.Common.AssetData.FileName">
+	<summary>
+Gets or sets the File name 
+</summary>
+</member><member name="P:Ektron.Cms.Common.AssetData.FileExtension">
+	<summary>
+Gets or sets the File Extension
+</summary>
+</member><member name="P:Ektron.Cms.Common.AssetData.ImageUrl">
+	<summary>
+Gets or sets the Image Url 
+</summary>
+</member><member name="P:Ektron.Cms.Common.AssetData.Icon">
+	<summary>
+Gets or sets the Icon
+</summary>
+</member><member name="P:Ektron.Cms.Common.AssetData.Status">
+	<summary>
+Gets or sets the Status value 
+</summary>
+</member><member name="P:Ektron.Cms.Common.AssetData.Language">
+	<summary>
+Gets or sets the Language
+</summary>
+</member><member name="P:Ektron.Cms.Common.AssetData.Type">
+	<summary>
+Gets or sets the Asset type. 101=Office Doc, 106=Image Asset and 104=Multimedia Doc
+</summary>
+</member><member name="P:Ektron.Cms.Common.AssetData.PluginType">
+	<summary>
+Gets or sets the Plugin Type 
+</summary>
+</member><member name="P:Ektron.Cms.Common.AssetData.PublishPdfActive">
+	<summary>
+Gets or sets a flag indicating wheather to Publish as Active or not
+</summary>
+</member><member name="T:ContentHitsData.content_hits_tblDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:ContentHitsData.content_hits_tblRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:ContentHitsData.content_hits_tblRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:ContentHitsData">
+	<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member>
+</members>
+</doc>
