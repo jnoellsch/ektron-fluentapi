@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/src/Ektron.SharedSource.FluentApi/bin/Debug
+/src/Ektron.SharedSource.FluentApi/obj/Debug
+/src/Ektron.SharedSource.FluentApi.Tests/obj/Debug
