@@ -38,6 +38,9 @@
     <Reference Include="Ektron.Cms.Contracts">
       <HintPath>..\..\lib\Ektron.9.1.0.184\Ektron.Cms.Contracts.dll</HintPath>
     </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.2.1409.1722\lib\net40\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.core.interfaces">
       <HintPath>..\packages\AutoFixture.NUnit2.3.21.1\lib\net40\nunit.core.interfaces.dll</HintPath>
     </Reference>

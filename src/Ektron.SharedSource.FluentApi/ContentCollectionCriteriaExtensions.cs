@@ -1,5 +1,6 @@
 ﻿namespace Ektron.SharedSource.FluentApi
 {
+    using Ektron.Cms.Common;
     using Ektron.Cms.Content;
 
     public static class ContentCollectionCriteriaExtensions
@@ -20,6 +21,11 @@
         {
             criteria.OrderByCollectionOrder = true;
             return criteria;
+        }
+
+        public static FilterContentCollection FilteredBy(this ContentCollectionCriteria criteria, ContentCollectionProperty field) 
+        {
+            return new FilterContentCollection(criteria, field);
         }
     }
 }

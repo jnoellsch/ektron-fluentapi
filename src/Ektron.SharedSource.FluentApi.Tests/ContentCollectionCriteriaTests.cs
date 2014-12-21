@@ -1,5 +1,6 @@
 ﻿namespace Ektron.SharedSource.FluentApi.Tests
 {
+    using Ektron.Cms.Common;
     using Ektron.Cms.Content;
     using NUnit.Framework;
 
@@ -11,6 +12,7 @@
             {
                 var sut = new ContentCollectionCriteria()
                     .ByCollection(10)
+                    .FilteredBy(ContentCollectionProperty.Description).Contains(10)
                     .Ordered();
             }    
         }
