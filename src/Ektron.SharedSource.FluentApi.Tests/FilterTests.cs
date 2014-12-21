@@ -7,9 +7,11 @@
 
     using NUnit.Framework;
 
+    using Ploeh.AutoFixture;
+    using Ploeh.AutoFixture.Idioms;
     using Ploeh.AutoFixture.NUnit2;
 
-    public class FilterTests : LocalAddin
+    public class FilterTests
     {
         [TestFixture]
         public class ContainsMethod

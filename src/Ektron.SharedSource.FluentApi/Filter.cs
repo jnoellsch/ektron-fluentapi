@@ -1,5 +1,7 @@
 ﻿namespace Ektron.SharedSource.FluentApi
 {
+    using System;
+
     using Ektron.Cms.Common;
 
     public abstract class Filter<T> where T : class
@@ -13,6 +15,8 @@
 
         protected Filter(T criteria)
         {
+            if (criteria == null) throw new ArgumentNullException("criteria");
+
             this.Criteria = criteria;
         }
 

@@ -1,5 +1,7 @@
 ﻿namespace Ektron.SharedSource.FluentApi
 {
+    using System;
+
     using Ektron.Cms.Common;
     using Ektron.Cms.Content;
 
