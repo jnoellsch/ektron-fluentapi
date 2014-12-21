@@ -4,6 +4,13 @@
 
     public abstract class Filter<T> where T : class
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Filter{T}" /> class. Used for unit testing only.
+        /// </summary>
+        internal Filter()
+        {
+        }
+
         protected Filter(T criteria)
         {
             this.Criteria = criteria;
