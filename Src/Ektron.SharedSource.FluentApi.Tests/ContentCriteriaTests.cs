@@ -28,5 +28,16 @@
                 Assert.AreEqual(LogicalOperation.And, sut.Condition);
             }
         }
+
+        [TestFixture]
+        public class RecursiveMethod
+        {
+            [Test]
+            public void SetsFolderRecursivePropertyToTrue()
+            {
+                var sut = new ContentCriteria().Recursive();
+                Assert.IsTrue(sut.FolderRecursive);
+            }
+        }
     }
 }

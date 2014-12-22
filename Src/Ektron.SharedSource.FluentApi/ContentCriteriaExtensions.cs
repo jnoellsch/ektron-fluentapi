@@ -16,5 +16,11 @@
             criteria.Condition = LogicalOperation.And;
             return criteria;
         }
+
+        public static ContentCriteria Recursive(this ContentCriteria criteria)
+        {
+            criteria.FolderRecursive = true;
+            return criteria;
+        }
     }
 }
