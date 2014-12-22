@@ -39,5 +39,16 @@
                 Assert.IsTrue(sut.FolderRecursive);
             }
         }
+
+        [TestFixture]
+        public class MaxItemsMethod
+        {
+            [Test]
+            public void SetsPagingPropertyToIntMax()
+            {
+                var sut = new ContentCriteria().MaxItems();
+                Assert.AreEqual(int.MaxValue, sut.PagingInfo.RecordsPerPage);
+            }
+        }
     }
 }

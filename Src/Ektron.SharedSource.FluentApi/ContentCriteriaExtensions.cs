@@ -1,5 +1,6 @@
 ﻿namespace Ektron.SharedSource.FluentApi
 {
+    using Ektron.Cms;
     using Ektron.Cms.Common;
     using Ektron.Cms.Content;
 
@@ -22,5 +23,12 @@
             criteria.FolderRecursive = true;
             return criteria;
         }
+
+        public static ContentCriteria MaxItems(this ContentCriteria criteria)
+        {
+            criteria.PagingInfo = new PagingInfo(int.MaxValue);
+            return criteria;
+        }
+
     }
 }
