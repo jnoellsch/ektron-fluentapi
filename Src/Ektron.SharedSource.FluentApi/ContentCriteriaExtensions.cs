@@ -36,6 +36,12 @@
             return critera;
         }
 
+        public static ContentCriteria BySmartForm(this ContentCriteria criteria, long xmlConfigId)
+        {
+            criteria.FilteredBy(ContentProperty.XmlConfigurationId).EqualTo(xmlConfigId);
+            return criteria;
+        }
+
         public static FilterContent FilteredBy(this ContentCriteria criteria, ContentProperty field)
         {
             return new FilterContent(criteria, field);

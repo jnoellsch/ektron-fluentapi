@@ -5,6 +5,8 @@
 
     using NUnit.Framework;
 
+    using Ploeh.AutoFixture.NUnit2;
+
     public class ContentCriteriaTests
     {
         [TestFixture]
@@ -59,6 +61,20 @@
             {
                 var sut = new ContentCriteria().WithMetadata();
                 Assert.IsTrue(sut.ReturnMetadata);
+            }
+        }
+
+        [TestFixture]
+        public class BySmartFormMethod
+        {
+            [Test, AutoData]
+            public void AddsFilterForXmlConfig(int id)
+            {
+                var sut = new ContentCriteria().BySmartForm(id);
+                
+                Assert.AreEqual(1, sut.FilterGroups.Count);
+                Assert.AreEqual(ContentProperty.XmlConfigurationId, sut.FilterGroups[0].Filters[0].Field);
+                Assert.AreEqual(id, sut.FilterGroups[0].Filters[0].Value);
             }
         }
     }
