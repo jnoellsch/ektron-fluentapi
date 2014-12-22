@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContentCriteriaExtensions.cs" />
+    <Compile Include="ContentDataExtensions.cs" />
     <Compile Include="Filter.cs" />
     <Compile Include="ContentCollectionCriteriaExtensions.cs" />
     <Compile Include="FilterContent.cs" />
