@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentCriteriaExtensions.cs" />
     <Compile Include="Filter.cs" />
     <Compile Include="ContentCollectionCriteriaExtensions.cs" />
     <Compile Include="FilterContentCollection.cs" />
