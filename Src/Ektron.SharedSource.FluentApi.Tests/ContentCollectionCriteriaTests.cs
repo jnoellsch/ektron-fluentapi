@@ -4,6 +4,8 @@
     using Ektron.Cms.Content;
     using NUnit.Framework;
 
+    using Ploeh.AutoFixture.NUnit2;
+
     public class ContentCollectionCriteriaTests
     {
         public class IntegrationValidation
@@ -20,21 +22,23 @@
         [TestFixture]
         public class ByCollectionMethod
         {
-            [TestCase(5)]
-            public void SetsFilterIfInteger(int id)
+            [Test, AutoData]
+            public void SetsFilterIfLong(long id)
             {
                 var sut = new ContentCollectionCriteria().ByCollection(id);
                 
                 Assert.AreEqual(1, sut.CollectionGroupFilters.Count);
+                Assert.AreEqual(ContentCollectionProperty.Id, sut.CollectionGroupFilters[0].Filters[0].Field);
                 Assert.AreEqual(id, sut.CollectionGroupFilters[0].Filters[0].Value);
             }
 
-            [TestCase("Test Name")]
+            [Test, AutoData]
             public void SetsFilterIfName(string name)
             {
                 var sut = new ContentCollectionCriteria().ByCollection(name);
 
                 Assert.AreEqual(1, sut.CollectionGroupFilters.Count);
+                Assert.AreEqual(ContentCollectionProperty.Title, sut.CollectionGroupFilters[0].Filters[0].Field);
                 Assert.AreEqual(name, sut.CollectionGroupFilters[0].Filters[0].Value);
             }
         }
@@ -47,7 +51,7 @@
             {
                 var sut = new ContentCollectionCriteria().Ordered();
 
-                Assert.AreEqual(true, sut.OrderByCollectionOrder);
+                Assert.True(sut.OrderByCollectionOrder);
             }
         }
     }
