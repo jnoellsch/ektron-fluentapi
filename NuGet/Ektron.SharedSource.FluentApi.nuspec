@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Ektron.SharedSource.FluentApi</id>
+    <version>1.0.0</version>
+    <authors>Jim Noellsch</authors>
+    <owners>Jim Noellsch</owners>
+    <licenseUrl>https://github.com/jnoellsch/ektron-fluentapi/license.txt</licenseUrl>
+    <projectUrl>https://github.com/jnoellsch/ektron-fluentapi/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>Adds a fluent API to the Ektron Framework API</summary>
+    <description>This extensions adds a more natural querying syntax over the Ektron Framework API.</description>
+    <copyright>Copyright 2014</copyright>
+    <tags>Ektron</tags>
+    <dependencies>
+    </dependencies>
+    <files>
+      <file src="Ektron.SharedSource.FluentApi.dll" target="lib\net40" />
+    </files>
+  </metadata>
+</package>
