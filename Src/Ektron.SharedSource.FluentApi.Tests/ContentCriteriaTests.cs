@@ -50,5 +50,16 @@
                 Assert.AreEqual(int.MaxValue, sut.PagingInfo.RecordsPerPage);
             }
         }
+
+        [TestFixture]
+        public class WithMetadataMethod
+        {
+            [Test]
+            public void SetsReturnMetadataPropertyToTrue()
+            {
+                var sut = new ContentCriteria().WithMetadata();
+                Assert.IsTrue(sut.ReturnMetadata);
+            }
+        }
     }
 }

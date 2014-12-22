@@ -30,5 +30,10 @@
             return criteria;
         }
 
+        public static ContentCriteria WithMetadata(this ContentCriteria critera)
+        {
+            critera.ReturnMetadata = true;
+            return critera;
+        }
     }
 }
