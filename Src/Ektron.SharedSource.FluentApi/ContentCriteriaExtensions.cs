@@ -115,7 +115,7 @@
         /// Adds a filter option.
         /// </summary>
         /// <param name="criteria">The criteria to extend.</param>
-        /// <param name="field">The field to sort on.</param>
+        /// <param name="field">The field to filter on.</param>
         /// <returns>An instance of <see cref="FilterContent"/>, which further refines the operator.</returns>
         public static FilterContent FilteredBy(this ContentCriteria criteria, ContentProperty field)
         {
