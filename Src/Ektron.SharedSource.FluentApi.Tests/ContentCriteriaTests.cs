@@ -77,5 +77,33 @@
                 Assert.AreEqual(id, sut.FilterGroups[0].Filters[0].Value);
             }
         }
+
+        [TestFixture]
+        public class OrderByMethod
+        {
+            [TestCase(ContentProperty.Title)]
+            [TestCase(ContentProperty.Path)]
+            public void SetsOrderFieldAndAscendingDirection(ContentProperty field)
+            {
+                var sut = new ContentCriteria().OrderBy(field);
+
+                Assert.AreEqual(EkEnumeration.OrderByDirection.Ascending, sut.OrderByDirection);
+                Assert.AreEqual(field, sut.OrderByField);
+            }
+        }
+
+        [TestFixture]
+        public class OrderByDescendingMethod
+        {
+            [TestCase(ContentProperty.Title)]
+            [TestCase(ContentProperty.Path)]
+            public void SetsOrderFieldAndDescendingDirection(ContentProperty field)
+            {
+                var sut = new ContentCriteria().OrderByDescending(field);
+
+                Assert.AreEqual(EkEnumeration.OrderByDirection.Descending, sut.OrderByDirection);
+                Assert.AreEqual(field, sut.OrderByField);
+            }   
+        }
     }
 }

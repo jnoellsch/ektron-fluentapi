@@ -42,6 +42,20 @@
             return criteria;
         }
 
+        public static ContentCriteria OrderBy(this ContentCriteria criteria, ContentProperty field)
+        {
+            criteria.OrderByDirection = EkEnumeration.OrderByDirection.Ascending;
+            criteria.OrderByField = field;
+            return criteria;
+        }
+
+        public static ContentCriteria OrderByDescending(this ContentCriteria criteria, ContentProperty field)
+        {
+            criteria.OrderByDirection = EkEnumeration.OrderByDirection.Descending;
+            criteria.OrderByField = field;
+            return criteria;
+        }
+
         public static FilterContent FilteredBy(this ContentCriteria criteria, ContentProperty field)
         {
             return new FilterContent(criteria, field);
