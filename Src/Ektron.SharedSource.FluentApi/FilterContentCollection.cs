@@ -7,17 +7,17 @@
 
     public class FilterContentCollection : Filter<ContentCollectionCriteria>
     {
-        private readonly ContentCollectionProperty _field;
-
         public FilterContentCollection(ContentCollectionCriteria criteria, ContentCollectionProperty field)
             : base(criteria)
         {
-            this._field = field;
+            this.Field = field;
         }
+
+        public ContentCollectionProperty Field { get; private set; }
 
         protected override void AddFilter(CriteriaFilterOperator @operator, object value)
         {
-            this.Criteria.AddFilter(this._field, @operator, value);
+            this.Criteria.AddFilter(this.Field, @operator, value);
         }
     }
 }

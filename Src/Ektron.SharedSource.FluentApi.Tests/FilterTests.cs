@@ -14,6 +14,16 @@
     public class FilterTests
     {
         [TestFixture]
+        public class Constructor : TestBase
+        {
+            [Test]
+            public void HasGuardClauses()
+            {
+                this.GuardClauseAssertion.Verify(typeof(Filter<object>).GetConstructors());
+            }
+        }
+
+        [TestFixture]
         public class ContainsMethod
         {
             [Test, AutoData]

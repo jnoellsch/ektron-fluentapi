@@ -17,6 +17,12 @@
             {
                 this.GuardClauseAssertion.Verify(typeof(FilterContentCollection).GetConstructors());
             }
+
+            [Test]
+            public void SetsProperties()
+            {
+                this.ConstructorInitializedMemberAssertion.Verify(typeof(FilterContentCollection).GetConstructors());
+            }
         }
 
         [TestFixture]

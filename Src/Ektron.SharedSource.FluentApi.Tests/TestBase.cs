@@ -11,7 +11,10 @@
             this.Fixture = new Fixture().Customize(new AutoMoqCustomization());
             this.GuardClauseAssertion = new GuardClauseAssertion(this.Fixture);
             this.WritablePropertyAssertion = new WritablePropertyAssertion(this.Fixture);
+            this.ConstructorInitializedMemberAssertion = new ConstructorInitializedMemberAssertion(this.Fixture);
         }
+
+        public ConstructorInitializedMemberAssertion ConstructorInitializedMemberAssertion { get; set; }
 
         public IFixture Fixture { get; set; }
 

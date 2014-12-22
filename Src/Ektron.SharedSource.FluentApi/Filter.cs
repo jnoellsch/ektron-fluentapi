@@ -20,7 +20,7 @@
             this.Criteria = criteria;
         }
 
-        protected T Criteria { get; private set; }
+        public T Criteria { get; private set; }
 
         public T Contains(object value)
         {
