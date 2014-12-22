@@ -67,6 +67,7 @@
     <Compile Include="ContentCriteriaExtensions.cs" />
     <Compile Include="Filter.cs" />
     <Compile Include="ContentCollectionCriteriaExtensions.cs" />
+    <Compile Include="FilterContent.cs" />
     <Compile Include="FilterContentCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

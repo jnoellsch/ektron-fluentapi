@@ -35,5 +35,10 @@
             critera.ReturnMetadata = true;
             return critera;
         }
+
+        public static FilterContent FilteredBy(this ContentCriteria criteria, ContentProperty field)
+        {
+            return new FilterContent(criteria, field);
+        }
     }
 }
