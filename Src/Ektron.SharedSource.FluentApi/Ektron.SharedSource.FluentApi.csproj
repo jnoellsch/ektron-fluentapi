@@ -70,7 +70,9 @@
     <Compile Include="ContentCollectionCriteriaExtensions.cs" />
     <Compile Include="FilterContent.cs" />
     <Compile Include="FilterContentCollection.cs" />
+    <Compile Include="FilterFolder.cs" />
     <Compile Include="FilterMenu.cs" />
+    <Compile Include="FolderCriteriaExtensions.cs" />
     <Compile Include="MenuCriteriaExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -78,8 +78,10 @@
     <Compile Include="ContentCriteriaTests.cs" />
     <Compile Include="FilterContentTests.cs" />
     <Compile Include="FilterContentCollectionTests.cs" />
+    <Compile Include="FilterFolderTests.cs" />
     <Compile Include="FilterMenuTests.cs" />
     <Compile Include="FilterTests.cs" />
+    <Compile Include="FolderCriteriaTests.cs" />
     <Compile Include="LocalAddin.cs" />
     <Compile Include="MenuCriteriaTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
