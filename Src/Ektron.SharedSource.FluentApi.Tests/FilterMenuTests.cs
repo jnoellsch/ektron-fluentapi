@@ -12,13 +12,13 @@
             [Test]
             public void HasGuardClauses()
             {
-                this.GuardClauseAssertion.Verify(typeof(FilterContent).GetConstructors());
+                this.GuardClauseAssertion.Verify(typeof(FilterMenu).GetConstructors());
             }
 
             [Test]
             public void SetsProperties()
             {
-                this.ConstructorInitializedMemberAssertion.Verify(typeof(FilterContent).GetConstructors());
+                this.ConstructorInitializedMemberAssertion.Verify(typeof(FilterMenu).GetConstructors());
             }
         }
 
