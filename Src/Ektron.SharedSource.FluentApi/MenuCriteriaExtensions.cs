@@ -1,6 +1,5 @@
 ﻿namespace Ektron.SharedSource.FluentApi
 {
-    using Ektron.Cms.Framework.Organization;
     using Ektron.Cms.Organization;
 
     /// <summary>
