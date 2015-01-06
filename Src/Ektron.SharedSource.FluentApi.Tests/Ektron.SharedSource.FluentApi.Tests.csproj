@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="ContentCollectionCriteriaTests.cs" />
     <Compile Include="ContentCriteriaTests.cs" />
+    <Compile Include="ContentDataTests.cs" />
     <Compile Include="FilterContentTests.cs" />
     <Compile Include="FilterContentCollectionTests.cs" />
     <Compile Include="FilterTests.cs" />

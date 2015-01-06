@@ -70,6 +70,9 @@
     <Compile Include="ContentCollectionCriteriaExtensions.cs" />
     <Compile Include="FilterContent.cs" />
     <Compile Include="FilterContentCollection.cs" />
+    <Compile Include="ModelAttributes\ContentDataAttribute.cs" />
+    <Compile Include="ModelAttributes\MetadataAttribute.cs" />
+    <Compile Include="ModelAttributes\SmartFormAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
