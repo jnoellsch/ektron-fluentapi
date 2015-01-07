@@ -10,7 +10,7 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
         public class Map
         {
             [Test]
-            public void ReadValueFromMetadata()
+            public void ReadString()
             {
                 var sut = new ContentData()
                 {
@@ -24,12 +24,12 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
                     }
                 };
 
-                var result = sut.AsContentType<MetadataResult>();
+                var result = sut.AsContentType<StringResult>();
 
                 Assert.AreEqual(result.Value, "123");
             }
 
-            public class MetadataResult
+            public class StringResult
             {
                 [Metadata("Value")]
                 public string Value { get; set; }

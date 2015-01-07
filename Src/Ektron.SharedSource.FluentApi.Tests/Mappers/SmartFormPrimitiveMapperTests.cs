@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Ektron.Cms;
 using Ektron.SharedSource.FluentApi.ModelAttributes;
@@ -12,7 +13,7 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
         public class Map
         {
             [Test]
-            public void ReadPrimitiveFromSmartFormXml()
+            public void ReadInteger()
             {
                 var sut = new ContentData
                 {
@@ -21,13 +22,45 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
                             </Sample>"
                 };
 
-                var result = sut.AsContentType<SmartFormResult>();
+                var result = sut.AsContentType<IntegerResult>();
 
                 Assert.AreEqual(result.Value, 123);
             }
 
+            public void ReadString()
+            {
+                var sut = new ContentData
+                {
+                    Html = @"<Sample>
+                                <Value>123</Value>
+                            </Sample>"
+                };
+
+                var result = sut.AsContentType<StringResult>();
+
+                Assert.AreEqual(result.Value, "123");
+            }
+
             [Test]
-            public void ReadPrimitiveArrayFromSmartFormXml()
+            public void DateTimeString()
+            {
+                var now = DateTime.Parse(DateTime.Now.ToString());
+                var html = @"<Sample>
+                                <Value>{0}</Value>
+                            </Sample>";
+
+                var sut = new ContentData
+                {
+                    Html = string.Format(html, now)
+                };
+
+                var result = sut.AsContentType<DateTimeResult>();
+
+                Assert.AreEqual(result.Value, now);
+            }
+
+            [Test]
+            public void ReadPrimitiveArray()
             {
                 var sut = new ContentData
                 {
@@ -38,20 +71,32 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
                             </Sample>"
                 };
 
-                var result = sut.AsContentType<SmartFormEnumerableResult>();
+                var result = sut.AsContentType<EnumerableResult>();
 
                 Assert.AreEqual(result.Value.First(), 123);
                 Assert.AreEqual(result.Value.Skip(1).First(), 234);
                 Assert.AreEqual(result.Value.Skip(2).First(), 345);
             }
 
-            public class SmartFormResult
+            public class IntegerResult
             {
                 [SmartFormPrimitive("/Sample/Value")]
                 public int Value { get; set; }
             }
 
-            public class SmartFormEnumerableResult
+            public class StringResult
+            {
+                [SmartFormPrimitive("/Sample/Value")]
+                public string Value { get; set; }
+            }
+
+            public class DateTimeResult
+            {
+                [SmartFormPrimitive("/Sample/Value")]
+                public DateTime Value { get; set; }
+            }
+
+            public class EnumerableResult
             {
                 [SmartFormPrimitive("/Sample/Value")]
                 public IEnumerable<int> Value { get; set; }

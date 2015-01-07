@@ -12,7 +12,7 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
         public class Map
         {
             [Test]
-            public void ReadComplexFromSmartFormXml()
+            public void ReadComplexType()
             {
                 var sut = new ContentData
                 {
@@ -23,13 +23,13 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
                             </Sample>"
                 };
 
-                var result = sut.AsContentType<SmartFormComplexResult>();
+                var result = sut.AsContentType<ComplexParent>();
 
                 Assert.AreEqual(result.Item.Value, 123);
             }
 
             [Test]
-            public void ReadComplexArrayFromSmartFormXml()
+            public void ReadComplexTypeArray()
             {
                 var sut = new ContentData
                 {
@@ -46,29 +46,29 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
                             </Sample>"
                 };
 
-                var result = sut.AsContentType<SmartFormComplexEnumerableResult>();
+                var result = sut.AsContentType<ComplexEnumerableParent>();
 
                 Assert.AreEqual(result.Items.First().Value, 123);
                 Assert.AreEqual(result.Items.Skip(1).First().Value, 234);
                 Assert.AreEqual(result.Items.Skip(2).First().Value, 345);
             }
 
-            public class SmartFormComplexResult
+            public class ComplexParent
             {
                 [SmartFormComplex("/Sample/Item")]
-                public SmartFormComplexInnerResult Item { get; set; }
+                public ComplexChild Item { get; set; }
             }
 
-            public class SmartFormComplexInnerResult
+            public class ComplexChild
             {
                 [SmartFormPrimitive("./Value")]
                 public int Value { get; set; }
             }
 
-            public class SmartFormComplexEnumerableResult
+            public class ComplexEnumerableParent
             {
                 [SmartFormComplex("/Sample/Item")]
-                public IEnumerable<SmartFormComplexInnerResult> Items { get; set; }
+                public IEnumerable<ComplexChild> Items { get; set; }
             }
         }
     }

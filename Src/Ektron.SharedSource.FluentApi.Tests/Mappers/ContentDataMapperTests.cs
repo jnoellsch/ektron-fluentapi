@@ -11,19 +11,19 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
         public class Map
         {
             [Test]
-            public void ReadValueFromContentData()
+            public void ReadDate()
             {
                 var sut = new ContentData()
                 {
                     DateCreated = DateTime.Now
                 };
 
-                var result = sut.AsContentType<ContentDataResult>();
+                var result = sut.AsContentType<DateResult>();
 
                 Assert.AreEqual(result.CreatedDate, sut.DateCreated);
             }
 
-            public class ContentDataResult
+            public class DateResult
             {
                 [ContentData("DateCreated")]
                 public DateTime CreatedDate { get; set; }
