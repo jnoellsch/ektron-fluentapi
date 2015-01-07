@@ -70,6 +70,15 @@
     <Compile Include="ContentCollectionCriteriaExtensions.cs" />
     <Compile Include="FilterContent.cs" />
     <Compile Include="FilterContentCollection.cs" />
+    <Compile Include="Mappers\ContentDataMapper.cs" />
+    <Compile Include="Mappers\MetadataMapper.cs" />
+    <Compile Include="Mappers\SmartFormComplexMapper.cs" />
+    <Compile Include="Mappers\SmartFormMapper.cs" />
+    <Compile Include="Mappers\SmartFormPrimitiveMapper.cs" />
+    <Compile Include="ModelAttributes\ContentDataAttribute.cs" />
+    <Compile Include="ModelAttributes\MetadataAttribute.cs" />
+    <Compile Include="ModelAttributes\SmartFormComplexAttribute.cs" />
+    <Compile Include="ModelAttributes\SmartFormPrimitiveAttribute.cs" />
     <Compile Include="FilterFolder.cs" />
     <Compile Include="FilterMenu.cs" />
     <Compile Include="FolderCriteriaExtensions.cs" />
