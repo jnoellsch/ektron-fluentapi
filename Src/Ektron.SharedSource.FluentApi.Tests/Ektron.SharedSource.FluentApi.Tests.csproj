@@ -76,7 +76,10 @@
   <ItemGroup>
     <Compile Include="ContentCollectionCriteriaTests.cs" />
     <Compile Include="ContentCriteriaTests.cs" />
-    <Compile Include="ContentDataTests.cs" />
+    <Compile Include="Mappers\ContentDataMapperTests.cs" />
+    <Compile Include="Mappers\MetadataMapperTests.cs" />
+    <Compile Include="Mappers\SmartFormComplexMapperTests.cs" />
+    <Compile Include="Mappers\SmartFormPrimitiveMapperTests.cs" />
     <Compile Include="FilterContentTests.cs" />
     <Compile Include="FilterContentCollectionTests.cs" />
     <Compile Include="FilterTests.cs" />
@@ -97,6 +100,7 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\Ektron.SharedSource.FluentApi\packages\StyleCop.MSBuild.4.7.49.0\build\StyleCop.MSBuild.Targets" Condition="Exists('..\Ektron.SharedSource.FluentApi\packages\StyleCop.MSBuild.4.7.49.0\build\StyleCop.MSBuild.Targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
