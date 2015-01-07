@@ -75,6 +75,7 @@
     <Compile Include="FolderCriteriaExtensions.cs" />
     <Compile Include="MenuCriteriaExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserCriteriaExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
