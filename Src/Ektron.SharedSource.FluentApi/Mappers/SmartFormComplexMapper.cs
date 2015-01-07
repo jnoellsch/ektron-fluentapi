@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 using System.Xml.XPath;
-using Ektron.Cms.Common;
 using Ektron.SharedSource.FluentApi.ModelAttributes;
 
 namespace Ektron.SharedSource.FluentApi.Mappers
@@ -37,7 +38,19 @@ namespace Ektron.SharedSource.FluentApi.Mappers
             var attribute = property.GetCustomAttributes<SmartFormComplexAttribute>().SingleOrDefault();
 
             if (attribute == null) return;
-            
+
+            if (typeof(IEnumerable).IsAssignableFrom(property.PropertyType))
+            {
+                MapFromArray(xml, property, destination, attribute);
+            }
+            else
+            {
+                MapFromValue(xml, property, destination, attribute);
+            }
+        }
+
+        private void MapFromValue(XNode xml, PropertyInfo property, object destination, SmartFormComplexAttribute attribute)
+        {
             var node = xml.XPathSelectElement(attribute.Xpath);
 
             if (node == null) return;
@@ -50,6 +63,34 @@ namespace Ektron.SharedSource.FluentApi.Mappers
             map.Invoke(_primitiveMapper, new[] { node, complex });
 
             this.Map(node, complex);
+        }
+
+        private void MapFromArray(XNode xml, PropertyInfo property, object destination, SmartFormComplexAttribute attribute)
+        {
+            var nodes = xml.XPathSelectElements(attribute.Xpath).ToList();
+
+            if (!nodes.Any()) return;
+
+            var propertyType = property.PropertyType.GetGenericArguments().First();
+
+            var listType = typeof(List<>);
+            var constructedListType = listType.MakeGenericType(propertyType);
+
+            var instance = Activator.CreateInstance(constructedListType);
+            var add = constructedListType.GetMethod("Add");
+            var map = _primitiveMapper.GetType().GetMethod("Map").MakeGenericMethod(propertyType);
+
+            foreach (var node in nodes)
+            {
+                var complex = Activator.CreateInstance(propertyType);
+                map.Invoke(_primitiveMapper, new[] { node, complex });
+
+                this.Map(node, complex);
+
+                add.Invoke(instance, new[] { complex });
+            }
+
+            property.SetValue(destination, instance);
         }
     }
 }

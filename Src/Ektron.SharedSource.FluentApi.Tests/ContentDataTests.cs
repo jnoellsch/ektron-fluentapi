@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Ektron.Cms;
 using Ektron.SharedSource.FluentApi.ModelAttributes;
 using NUnit.Framework;
@@ -40,6 +43,50 @@ namespace Ektron.SharedSource.FluentApi.Tests
                 var result = sut.AsContentType<SmartFormComplexResult>();
 
                 Assert.AreEqual(result.Item.Value, 123);
+            }
+
+            [Test]
+            public void ReadPrimitiveArrayFromSmartFormXml()
+            {
+                var sut = new ContentData
+                {
+                    Html = @"<Sample>
+                                <Value>123</Value>
+                                <Value>234</Value>
+                                <Value>345</Value>
+                            </Sample>"
+                };
+
+                var result = sut.AsContentType<SmartFormEnumerableResult>();
+
+                Assert.AreEqual(result.Value.First(), 123);
+                Assert.AreEqual(result.Value.Skip(1).First(), 234);
+                Assert.AreEqual(result.Value.Skip(2).First(), 345);
+            }
+
+            [Test]
+            public void ReadComplexArrayFromSmartFormXml()
+            {
+                var sut = new ContentData
+                {
+                    Html = @"<Sample>
+                                <Item>
+                                    <Value>123</Value>
+                                </Item>
+                                <Item>
+                                    <Value>234</Value>
+                                </Item>
+                                <Item>
+                                    <Value>345</Value>
+                                </Item>
+                            </Sample>"
+                };
+
+                var result = sut.AsContentType<SmartFormComplexEnumerableResult>();
+
+                Assert.AreEqual(result.Items.First().Value, 123);
+                Assert.AreEqual(result.Items.Skip(1).First().Value, 234);
+                Assert.AreEqual(result.Items.Skip(2).First().Value, 345);
             }
 
             [Test]
@@ -91,6 +138,18 @@ namespace Ektron.SharedSource.FluentApi.Tests
             {
                 [SmartFormPrimitive("./Value")]
                 public int Value { get; set; }
+            }
+
+            public class SmartFormEnumerableResult
+            {
+                [SmartFormPrimitive("/Sample/Value")]
+                public IEnumerable<int> Value { get; set; }
+            }
+
+            public class SmartFormComplexEnumerableResult
+            {
+                [SmartFormComplex("/Sample/Item")]
+                public IEnumerable<SmartFormComplexInnerResult> Items { get; set; }
             }
 
             public class ContentDataResult
