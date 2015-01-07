@@ -5,13 +5,13 @@ namespace Ektron.SharedSource.FluentApi.ModelAttributes
     /// <summary>
     /// Attribute indicating the name of the Smart Form field to find the value.
     /// </summary>
-    public class SmartFormAttribute : Attribute
+    public class SmartFormPrimitiveAttribute : Attribute
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SmartFormAttribute"/> class.
+        /// Initializes a new instance of the <see cref="SmartFormPrimitiveAttribute"/> class.
         /// </summary>
         /// <param name="xpath">The xpath.</param>
-        public SmartFormAttribute(string xpath)
+        public SmartFormPrimitiveAttribute(string xpath)
         {
             this.Xpath = xpath;
         }

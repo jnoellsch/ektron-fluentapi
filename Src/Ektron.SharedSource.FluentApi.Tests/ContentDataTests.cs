@@ -11,7 +11,7 @@ namespace Ektron.SharedSource.FluentApi.Tests
         public class AsContentType
         {
             [Test]
-            public void ReadValueFromSmartFormXml()
+            public void ReadPrimitiveFromSmartFormXml()
             {
                 var sut = new ContentData
                 {
@@ -20,9 +20,26 @@ namespace Ektron.SharedSource.FluentApi.Tests
                             </Sample>"
                 };
 
-                var result = sut.AsContentType<SmartFormResultClass>();
+                var result = sut.AsContentType<SmartFormResult>();
 
-                Assert.AreEqual(result.Value, "123");
+                Assert.AreEqual(result.Value, 123);
+            }
+
+            [Test]
+            public void ReadComplexFromSmartFormXml()
+            {
+                var sut = new ContentData
+                {
+                    Html = @"<Sample>
+                                <Item>
+                                    <Value>123</Value>
+                                </Item>
+                            </Sample>"
+                };
+
+                var result = sut.AsContentType<SmartFormComplexResult>();
+
+                Assert.AreEqual(result.Item.Value, 123);
             }
 
             [Test]
@@ -33,7 +50,7 @@ namespace Ektron.SharedSource.FluentApi.Tests
                     DateCreated = DateTime.Now
                 };
 
-                var result = sut.AsContentType<ContentDataResultClass>();
+                var result = sut.AsContentType<ContentDataResult>();
 
                 Assert.AreEqual(result.CreatedDate, sut.DateCreated);
             }
@@ -53,24 +70,36 @@ namespace Ektron.SharedSource.FluentApi.Tests
                     }
                 };
 
-                var result = sut.AsContentType<MetadataResultClass>();
+                var result = sut.AsContentType<MetadataResult>();
 
                 Assert.AreEqual(result.Value, "123");
             }
 
-            public class SmartFormResultClass
+            public class SmartFormResult
             {
-                [SmartForm("/Sample/Value")]
-                public string Value { get; set; }
+                [SmartFormPrimitive("/Sample/Value")]
+                public int Value { get; set; }
             }
 
-            public class ContentDataResultClass
+            public class SmartFormComplexResult
+            {
+                [SmartFormComplex("/Sample/Item")]
+                public SmartFormComplexInnerResult Item { get; set; }
+            }
+
+            public class SmartFormComplexInnerResult
+            {
+                [SmartFormPrimitive("./Value")]
+                public int Value { get; set; }
+            }
+
+            public class ContentDataResult
             {
                 [ContentData("DateCreated")]
                 public DateTime CreatedDate { get; set; }
             }
 
-            public class MetadataResultClass
+            public class MetadataResult
             {
                 [Metadata("Value")]
                 public string Value { get; set; }

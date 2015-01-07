@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using Ektron.Cms;
+using Ektron.SharedSource.FluentApi.Mappers;
 using Ektron.SharedSource.FluentApi.ModelAttributes;
 
 namespace Ektron.SharedSource.FluentApi
@@ -20,7 +21,7 @@ namespace Ektron.SharedSource.FluentApi
         /// <typeparam name="T">Content Type to convert <see cref="ContentData"/> to.</typeparam>
         /// <param name="source">A set of <see cref="ContentData"/> to convert.</param>
         /// <returns>A set of content types.</returns>
-        public static IEnumerable<T> AsContentType<T>(this IEnumerable<ContentData> source)
+        public static IEnumerable<T> AsContentType<T>(this IEnumerable<ContentData> source) where T : class
         {
             return source.Select(AsContentType<T>);
         }
@@ -31,99 +32,21 @@ namespace Ektron.SharedSource.FluentApi
         /// <typeparam name="T">Content Type to convert <see cref="ContentData"/> to.</typeparam>
         /// <param name="source">The <see cref="ContentData"/> to convert.</param>
         /// <returns>A content type.</returns>
-        public static T AsContentType<T>(this ContentData source)
+        public static T AsContentType<T>(this ContentData source) where T : class
         {
-            var properties = typeof(T).GetProperties();
             var result = Activator.CreateInstance<T>();
 
-            foreach (var property in properties)
-            {
-                try
-                {
-                    var xml = XDocument.Parse(source.Html);
-                    if (TryApplySmartFormValue(source, property, result, xml)) continue;
-                }
-                catch
-                {
-                }
+            var smartFormPrimitiveMapper = new SmartFormPrimitiveMapper();
+            var smartFormComplexMapper = new SmartFormComplexMapper(smartFormPrimitiveMapper);
+            var smartFormMapper = new SmartFormMapper(smartFormPrimitiveMapper, smartFormComplexMapper);
+            var metadataMapper = new MetadataMapper();
+            var contentDataMapper = new ContentDataMapper();
 
-                if (TryApplyContentDataValue(source, property, result)) continue;
-
-                if (TryApplyMetadataValue(source, property, result)) continue;
-            }
+            smartFormMapper.Map(source, result);
+            metadataMapper.Map(source, result);
+            contentDataMapper.Map(source, result);
 
             return result;
-        }
-
-        /// <summary>
-        /// Attempts to use attribute to apply smart form value.
-        /// </summary>
-        /// <typeparam name="T">Type of result.</typeparam>
-        /// <param name="source"><see cref="ContentData"/> source.</param>
-        /// <param name="property">The property to be set.</param>
-        /// <param name="result">The object whose property will be set.</param>
-        /// <returns>A boolean indicating the success or failure of the action.</returns>
-        private static bool TryApplyMetadataValue<T>(ContentData source, PropertyInfo property, T result)
-        {
-            var metadataProperty = property.GetCustomAttributes<MetadataAttribute>().SingleOrDefault();
-
-            if (metadataProperty == null) return false;
-            
-            var metadata = source.MetaData.SingleOrDefault(x => x.Name == metadataProperty.FieldName);
-
-            if (metadata == null) return false;
-            
-            property.SetValue(result, metadata.Text);
-            
-            return true;
-        }
-
-        /// <summary>
-        /// Attempts to use attribute to apply <see cref="ContentData"/> value.
-        /// </summary>
-        /// <typeparam name="T">Type of result.</typeparam>
-        /// <param name="source"><see cref="ContentData"/> source.</param>
-        /// <param name="property">The property to be set.</param>
-        /// <param name="result">The object whose property will be set.</param>
-        /// <returns>A boolean indicating the success or failure of the action.</returns>
-        private static bool TryApplyContentDataValue<T>(ContentData source, PropertyInfo property, T result)
-        {
-            var contentDataProperty = property.GetCustomAttributes<ContentDataAttribute>().SingleOrDefault();
-
-            if (contentDataProperty == null) return false;
-
-            var sourceProperty = typeof(ContentData).GetProperty(contentDataProperty.PropertyName);
-
-            if (sourceProperty == null) return false;
-            
-            var value = sourceProperty.GetValue(source);
-            property.SetValue(result, value);
-            
-            return true;
-        }
-
-        /// <summary>
-        /// Attempts to use attribute to apply metadata value.
-        /// </summary>
-        /// <typeparam name="T">Type of result.</typeparam>
-        /// <param name="source"><see cref="ContentData"/> source.</param>
-        /// <param name="property">The property to be set.</param>
-        /// <param name="result">The object whose property will be set.</param>
-        /// <param name="xml">The <see cref="XDocument"/> of the Html source.</param>
-        /// <returns>A boolean indicating the success or failure of the action.</returns>
-        private static bool TryApplySmartFormValue<T>(ContentData source, PropertyInfo property, T result, XDocument xml)
-        {
-            var smartformProperty = property.GetCustomAttributes<SmartFormAttribute>().SingleOrDefault();
-
-            if (smartformProperty == null) return false;
-
-            var node = xml.XPathSelectElement(smartformProperty.Xpath);
-
-            if (node == null) return false;
-            
-            property.SetValue(result, node.Value);
-            
-            return true;
         }
     }
 }
