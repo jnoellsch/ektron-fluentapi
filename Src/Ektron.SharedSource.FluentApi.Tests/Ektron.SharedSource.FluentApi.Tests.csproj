@@ -82,10 +82,15 @@
     <Compile Include="Mappers\SmartFormPrimitiveMapperTests.cs" />
     <Compile Include="FilterContentTests.cs" />
     <Compile Include="FilterContentCollectionTests.cs" />
+    <Compile Include="FilterFolderTests.cs" />
+    <Compile Include="FilterMenuTests.cs" />
     <Compile Include="FilterTests.cs" />
+    <Compile Include="FolderCriteriaTests.cs" />
     <Compile Include="LocalAddin.cs" />
+    <Compile Include="MenuCriteriaTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestBase.cs" />
+    <Compile Include="UserCriteriaTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
