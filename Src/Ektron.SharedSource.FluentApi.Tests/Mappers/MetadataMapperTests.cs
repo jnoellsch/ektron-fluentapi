@@ -20,7 +20,7 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
                     {
                         new ContentMetaData()
                         {
-                            Name = "Values",
+                            Name = "Value",
                             Text = "123"
                         }
                     }

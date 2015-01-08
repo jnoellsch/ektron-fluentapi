@@ -19,11 +19,11 @@ namespace Ektron.SharedSource.FluentApi.Mappers
 
             foreach (var propertyInfo in properties)
             {
-                Map(xml, propertyInfo, destination);
+                MapProperty(xml, propertyInfo, destination);
             }
         }
 
-        private void Map<T>(XNode xml, PropertyInfo property, T destination)
+        private void MapProperty<T>(XNode xml, PropertyInfo property, T destination)
         {
             var attribute = property.GetCustomAttributes<SmartFormPrimitiveAttribute>().SingleOrDefault();
 

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Linq;
 using System.Reflection;
 using Ektron.Cms;
 using Ektron.SharedSource.FluentApi.ModelAttributes;
@@ -27,7 +28,7 @@ namespace Ektron.SharedSource.FluentApi.Mappers
 
             if (metadata == null) return;
 
-            if (metadata.AllowMultiple)
+            if (metadata.AllowMultiple && typeof(IEnumerable).IsAssignableFrom(property.PropertyType))
             {
                 var sources = metadata.Text.Split(metadata.Separator[0]);
                 var values = StringMapper.Map(sources, property.PropertyType);
