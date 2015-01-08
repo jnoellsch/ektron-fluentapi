@@ -110,6 +110,23 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
                 Assert.AreEqual(result.Value, EnumOptions.Second);
             }
 
+            [Test]
+            public void ReadEnumArray()
+            {
+                var sut = new ContentData
+                {
+                    Html = @"<Sample>
+                                <Value>0</Value>
+                                <Value>1</Value>
+                            </Sample>"
+                };
+
+                var result = sut.AsContentType<EnumArrayResult>();
+
+                Assert.AreEqual(result.Values.First(), EnumOptions.First);
+                Assert.AreEqual(result.Values.Skip(1).First(), EnumOptions.Second);
+            }
+
             public class IntegerResult
             {
                 [SmartFormPrimitive("./Value")]
@@ -144,6 +161,12 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
             {
                 [SmartFormPrimitive("./Value")]
                 public EnumOptions Value { get; set; }
+            }
+
+            public class EnumArrayResult
+            {
+                [SmartFormPrimitive("./Value")]
+                public IEnumerable<EnumOptions> Values { get; set; }
             }
 
             public enum EnumOptions
