@@ -9,10 +9,10 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
     public class MetadataMapperTests
     {
         [TestFixture]
-        public class Map
+        public class MapMethod
         {
             [Test]
-            public void ReadString()
+            public void MapsString()
             {
                 var sut = new ContentData()
                 {
@@ -32,7 +32,7 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
             }
 
             [Test]
-            public void ReadEnumerable()
+            public void MapsEnumerable()
             {
                 var sut = new ContentData()
                 {

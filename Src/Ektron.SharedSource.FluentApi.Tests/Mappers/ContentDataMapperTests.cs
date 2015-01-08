@@ -8,10 +8,10 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
     public class ContentDataMapperTests
     {
         [TestFixture]
-        public class Map
+        public class MapMethod
         {
             [Test]
-            public void ReadDate()
+            public void MapsDate()
             {
                 var sut = new ContentData()
                 {

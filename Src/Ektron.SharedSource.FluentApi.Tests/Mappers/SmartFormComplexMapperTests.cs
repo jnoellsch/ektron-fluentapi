@@ -9,10 +9,10 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
     public class SmartFormComplexMapperTests
     {
         [TestFixture]
-        public class Map
+        public class MapMethod
         {
             [Test]
-            public void ReadComplexType()
+            public void MapsComplexType()
             {
                 var sut = new ContentData
                 {
@@ -29,7 +29,7 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
             }
 
             [Test]
-            public void ReadComplexTypeArray()
+            public void MapsComplexTypeArray()
             {
                 var sut = new ContentData
                 {

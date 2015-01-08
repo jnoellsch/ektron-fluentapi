@@ -10,10 +10,10 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
     public class SmartFormPrimitiveMapperTests
     {
         [TestFixture]
-        public class Map
+        public class MapMethod
         {
             [Test]
-            public void ReadInteger()
+            public void MapsInteger()
             {
                 var sut = new ContentData
                 {
@@ -28,7 +28,7 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
             }
 
             [Test]
-            public void DerivedClassWork()
+            public void MapsBaseAndDerivedClasses()
             {
                 var sut = new ContentData
                 {
@@ -44,7 +44,7 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
                 Assert.AreEqual(result.Value2, 234);
             }
 
-            public void ReadString()
+            public void MapsString()
             {
                 var sut = new ContentData
                 {
@@ -59,7 +59,7 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
             }
 
             [Test]
-            public void DateTimeString()
+            public void MapsDateTime()
             {
                 var now = DateTime.Parse(DateTime.Now.ToString());
                 var html = @"<Sample>
@@ -77,7 +77,7 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
             }
 
             [Test]
-            public void ReadPrimitiveArray()
+            public void MapsPrimitiveArray()
             {
                 var sut = new ContentData
                 {
@@ -96,7 +96,7 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
             }
 
             [Test]
-            public void ReadEnum()
+            public void MapsEnum()
             {
                 var sut = new ContentData
                 {
@@ -111,7 +111,7 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
             }
 
             [Test]
-            public void ReadEnumArray()
+            public void MapsEnumArray()
             {
                 var sut = new ContentData
                 {
