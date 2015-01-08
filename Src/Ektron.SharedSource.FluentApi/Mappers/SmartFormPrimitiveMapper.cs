@@ -8,9 +8,9 @@ using Ektron.SharedSource.FluentApi.ModelAttributes;
 
 namespace Ektron.SharedSource.FluentApi.Mappers
 {
-    public class SmartFormPrimitiveMapper
+    internal static class SmartFormPrimitiveMapper
     {
-        public void Map<T>(XNode xml, T destination) where T : class
+        public static void Map<T>(XNode xml, T destination) where T : class
         {
             if (xml == null) throw new ArgumentNullException("xml");
             if (destination == null) throw new ArgumentNullException("destination");
@@ -23,7 +23,7 @@ namespace Ektron.SharedSource.FluentApi.Mappers
             }
         }
 
-        private void MapProperty<T>(XNode xml, PropertyInfo property, T destination)
+        private static void MapProperty<T>(XNode xml, PropertyInfo property, T destination)
         {
             var attribute = property.GetCustomAttributes<SmartFormPrimitiveAttribute>().SingleOrDefault();
 

@@ -4,21 +4,9 @@ using Ektron.Cms;
 
 namespace Ektron.SharedSource.FluentApi.Mappers
 {
-    public class SmartFormMapper
+    internal static class SmartFormMapper
     {
-        private readonly SmartFormPrimitiveMapper _primitiveMapper;
-        private readonly SmartFormComplexMapper _complexMapper;
-
-        public SmartFormMapper(SmartFormPrimitiveMapper primitiveMapper, SmartFormComplexMapper complexMapper)
-        {
-            if (primitiveMapper == null) throw new ArgumentNullException("primitiveMapper");
-            if (complexMapper == null) throw new ArgumentNullException("complexMapper");
-
-            _primitiveMapper = primitiveMapper;
-            _complexMapper = complexMapper;
-        }
-
-        public void Map<T>(ContentData source, T destination) where T : class
+        public static void Map<T>(ContentData source, T destination) where T : class
         {
             if (source == null) throw new ArgumentNullException("source");
             if (destination == null) throw new ArgumentNullException("xml");
@@ -27,8 +15,8 @@ namespace Ektron.SharedSource.FluentApi.Mappers
 
             var xml = XDocument.Parse(source.Html).Root;
 
-            _complexMapper.Map(xml, destination);
-            _primitiveMapper.Map(xml, destination);
+            SmartFormComplexMapper.Map(xml, destination);
+            SmartFormPrimitiveMapper.Map(xml, destination);
         }
     }
 }

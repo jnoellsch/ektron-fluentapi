@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Xml.Linq;
-using System.Xml.XPath;
 using Ektron.Cms;
 using Ektron.SharedSource.FluentApi.Mappers;
-using Ektron.SharedSource.FluentApi.ModelAttributes;
 
 namespace Ektron.SharedSource.FluentApi
 {
@@ -36,15 +32,9 @@ namespace Ektron.SharedSource.FluentApi
         {
             var result = Activator.CreateInstance<T>();
 
-            var smartFormPrimitiveMapper = new SmartFormPrimitiveMapper();
-            var smartFormComplexMapper = new SmartFormComplexMapper(smartFormPrimitiveMapper);
-            var smartFormMapper = new SmartFormMapper(smartFormPrimitiveMapper, smartFormComplexMapper);
-            var metadataMapper = new MetadataMapper();
-            var contentDataMapper = new ContentDataMapper();
-
-            smartFormMapper.Map(source, result);
-            metadataMapper.Map(source, result);
-            contentDataMapper.Map(source, result);
+            SmartFormMapper.Map(source, result);
+            MetadataMapper.Map(source, result);
+            ContentDataMapper.Map(source, result);
 
             return result;
         }

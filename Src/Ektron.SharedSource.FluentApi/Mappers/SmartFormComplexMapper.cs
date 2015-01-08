@@ -9,18 +9,9 @@ using Ektron.SharedSource.FluentApi.ModelAttributes;
 
 namespace Ektron.SharedSource.FluentApi.Mappers
 {
-    public class SmartFormComplexMapper
+    internal static class SmartFormComplexMapper
     {
-        private readonly SmartFormPrimitiveMapper _primitiveMapper;
-
-        public SmartFormComplexMapper(SmartFormPrimitiveMapper primitiveMapper)
-        {
-            if (primitiveMapper == null) throw new ArgumentNullException("primitiveMapper");
-
-            _primitiveMapper = primitiveMapper;
-        }
-
-        public void Map<T>(XNode xml, T destination) where T : class
+        public static void Map<T>(XNode xml, T destination) where T : class
         {
             if (xml == null) throw new ArgumentNullException("xml");
             if (destination == null) throw new ArgumentNullException("xml");
@@ -33,7 +24,7 @@ namespace Ektron.SharedSource.FluentApi.Mappers
             }
         }
 
-        private void MapProperty<T>(XNode xml, PropertyInfo property, T destination)
+        private static void MapProperty<T>(XNode xml, PropertyInfo property, T destination)
         {
             var attribute = property.GetCustomAttributes<SmartFormComplexAttribute>().SingleOrDefault();
 
@@ -49,7 +40,7 @@ namespace Ektron.SharedSource.FluentApi.Mappers
             }
         }
 
-        private void MapFromValue(XNode xml, PropertyInfo property, object destination, SmartFormComplexAttribute attribute)
+        private static void MapFromValue(XNode xml, PropertyInfo property, object destination, SmartFormComplexAttribute attribute)
         {
             var node = xml.XPathSelectElement(attribute.Xpath);
 
@@ -59,13 +50,13 @@ namespace Ektron.SharedSource.FluentApi.Mappers
 
             property.SetValue(destination, complex);
 
-            var map = _primitiveMapper.GetType().GetMethod("Map").MakeGenericMethod(property.PropertyType);
-            map.Invoke(_primitiveMapper, new[] { node, complex });
+            var map = typeof(SmartFormPrimitiveMapper).GetMethod("Map").MakeGenericMethod(property.PropertyType);
+            map.Invoke(null, new[] { node, complex });
 
-            this.Map(node, complex);
+            Map(node, complex);
         }
 
-        private void MapFromArray(XNode xml, PropertyInfo property, object destination, SmartFormComplexAttribute attribute)
+        private static void MapFromArray(XNode xml, PropertyInfo property, object destination, SmartFormComplexAttribute attribute)
         {
             var nodes = xml.XPathSelectElements(attribute.Xpath).ToList();
 
@@ -78,14 +69,14 @@ namespace Ektron.SharedSource.FluentApi.Mappers
 
             var instance = Activator.CreateInstance(constructedListType);
             var add = constructedListType.GetMethod("Add");
-            var map = _primitiveMapper.GetType().GetMethod("Map").MakeGenericMethod(propertyType);
+            var map = typeof(SmartFormPrimitiveMapper).GetMethod("Map").MakeGenericMethod(propertyType);
 
             foreach (var node in nodes)
             {
                 var complex = Activator.CreateInstance(propertyType);
-                map.Invoke(_primitiveMapper, new[] { node, complex });
+                map.Invoke(null, new[] { node, complex });
 
-                this.Map(node, complex);
+                Map(node, complex);
 
                 add.Invoke(instance, new[] { complex });
             }

@@ -6,9 +6,9 @@ using Ektron.SharedSource.FluentApi.ModelAttributes;
 
 namespace Ektron.SharedSource.FluentApi.Mappers
 {
-    public class ContentDataMapper
+    internal static class ContentDataMapper
     {
-        public void Map<T>(ContentData source, T destination)
+        public static void Map<T>(ContentData source, T destination)
         {
             var properties = typeof(T).GetProperties();
 
@@ -18,7 +18,7 @@ namespace Ektron.SharedSource.FluentApi.Mappers
             }
         }
 
-        private void Map<T>(ContentData source, PropertyInfo property, T destination)
+        private static void Map<T>(ContentData source, PropertyInfo property, T destination)
         {
             var contentDataProperty = property.GetCustomAttributes<ContentDataAttribute>().SingleOrDefault();
 

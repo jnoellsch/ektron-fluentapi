@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Ektron.SharedSource.FluentApi.Mappers
 {
-    public static class StringMapper
+    internal static class StringMapper
     {
         public static Object Map(string value, Type targetType)
         {
