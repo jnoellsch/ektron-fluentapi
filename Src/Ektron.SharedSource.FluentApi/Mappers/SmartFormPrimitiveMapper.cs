@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
@@ -30,75 +29,36 @@ namespace Ektron.SharedSource.FluentApi.Mappers
 
             if (attribute == null) return;
 
+            var xpath = attribute.Xpath;
+
             if (typeof (IEnumerable).IsAssignableFrom(property.PropertyType))
             {
-                MapToEnumerable(xml, property, destination, attribute);
-            }
-            else if (property.PropertyType.IsEnum)
-            {
-                MapToEnum(xml, property, destination, attribute);
-            }
-            else if (typeof (IConvertible).IsAssignableFrom(property.PropertyType))
-            {
-                MapToConvertible(xml, property, destination, attribute);
+                MapEnumerable(xml, property, destination, xpath);
             }
             else
             {
-                throw new Exception("Property must be IConvertible (string, int, DateTime), IEnumerable<IConvertible>, or an enum.");
+                MapBasic(xml, property, destination, xpath);
             }
         }
 
-        private static void MapToConvertible<T>(XNode xml, PropertyInfo property, T destination, SmartFormPrimitiveAttribute attribute)
+        private static void MapBasic<T>(XNode xml, PropertyInfo property, T destination, string xpath)
         {
-            var node = xml.XPathSelectElement(attribute.Xpath);
+            var node = xml.XPathSelectElement(xpath);
 
             if (node == null) return;
 
-            property.SetValue(destination, Convert.ChangeType(node.Value, property.PropertyType));
+            var value = StringMapper.Map(node.Value, property.PropertyType);
+
+            property.SetValue(destination, value);
         }
 
-        private static void MapToEnum<T>(XNode xml, PropertyInfo property, T destination, SmartFormPrimitiveAttribute attribute)
+        private static void MapEnumerable<T>(XNode xml, PropertyInfo property, T destination, string xpath)
         {
-            var node = xml.XPathSelectElement(attribute.Xpath);
+            var nodes = xml.XPathSelectElements(xpath).Select(x => x.Value).ToList();
 
-            if (node == null) return;
+            var value = StringMapper.Map(nodes, property.PropertyType);
 
-            property.SetValue(destination, Enum.Parse(property.PropertyType, node.Value));
-        }
-
-        private static void MapToEnumerable<T>(XNode xml, PropertyInfo property, T destination, SmartFormPrimitiveAttribute attribute)
-        {
-            var nodes = xml.XPathSelectElements(attribute.Xpath).ToList();
-
-            if (!nodes.Any()) return;
-            
-            var propertyType = property.PropertyType.GetGenericArguments().First();
-
-            var listType = typeof (List<>);
-            var constructedListType = listType.MakeGenericType(propertyType);
-
-            var instance = Activator.CreateInstance(constructedListType);
-            var add = constructedListType.GetMethod("Add");
-
-            foreach (var node in nodes)
-            {
-                if (propertyType.IsEnum)
-                {
-                    var value = Enum.Parse(propertyType, node.Value);
-                    add.Invoke(instance, new[] {value});
-                }
-                else if (typeof(IConvertible).IsAssignableFrom(propertyType))
-                {
-                    var value = Convert.ChangeType(node.Value, propertyType);
-                    add.Invoke(instance, new[] { value });
-                }
-                else
-                {
-                    throw new Exception("IEnumerable generic parameter must be IConvertible or an enum.");
-                }
-            }
-
-            property.SetValue(destination, instance);
+            property.SetValue(destination, value);
         }
     }
 }

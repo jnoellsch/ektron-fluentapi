@@ -75,6 +75,7 @@
     <Compile Include="Mappers\SmartFormComplexMapper.cs" />
     <Compile Include="Mappers\SmartFormMapper.cs" />
     <Compile Include="Mappers\SmartFormPrimitiveMapper.cs" />
+    <Compile Include="Mappers\StringMapper.cs" />
     <Compile Include="ModelAttributes\ContentDataAttribute.cs" />
     <Compile Include="ModelAttributes\MetadataAttribute.cs" />
     <Compile Include="ModelAttributes\SmartFormComplexAttribute.cs" />

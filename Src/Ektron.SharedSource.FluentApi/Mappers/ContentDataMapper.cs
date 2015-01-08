@@ -29,7 +29,7 @@ namespace Ektron.SharedSource.FluentApi.Mappers
             if (sourceProperty == null) return;
 
             var value = sourceProperty.GetValue(source);
-            property.SetValue(destination, Convert.ChangeType(value, property.PropertyType));
+            property.SetValue(destination, value);
         }
     }
 }

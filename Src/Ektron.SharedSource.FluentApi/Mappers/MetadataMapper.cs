@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using Ektron.Cms;
 using Ektron.SharedSource.FluentApi.ModelAttributes;
@@ -28,7 +27,17 @@ namespace Ektron.SharedSource.FluentApi.Mappers
 
             if (metadata == null) return;
 
-            property.SetValue(destination, Convert.ChangeType(metadata.Text, property.PropertyType));
+            if (metadata.AllowMultiple)
+            {
+                var sources = metadata.Text.Split(metadata.Separator[0]);
+                var values = StringMapper.Map(sources, property.PropertyType);
+                property.SetValue(destination, values);
+            }
+            else
+            {
+                var value = StringMapper.Map(metadata.Text, property.PropertyType);
+                property.SetValue(destination, value);
+            }
         }
     }
 }
