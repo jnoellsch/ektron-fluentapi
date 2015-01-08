@@ -55,7 +55,7 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
 
             public class ComplexParent
             {
-                [SmartFormComplex("/Sample/Item")]
+                [SmartFormComplex("./Item")]
                 public ComplexChild Item { get; set; }
             }
 
@@ -67,7 +67,7 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
 
             public class ComplexEnumerableParent
             {
-                [SmartFormComplex("/Sample/Item")]
+                [SmartFormComplex("./Item")]
                 public IEnumerable<ComplexChild> Items { get; set; }
             }
         }

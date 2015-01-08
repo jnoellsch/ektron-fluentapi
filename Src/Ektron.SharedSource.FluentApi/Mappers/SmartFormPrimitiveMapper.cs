@@ -46,7 +46,14 @@ namespace Ektron.SharedSource.FluentApi.Mappers
 
             if (node == null) return;
 
-            property.SetValue(destination, Convert.ChangeType(node.Value, property.PropertyType));
+            if (property.PropertyType.IsEnum)
+            {
+                property.SetValue(destination, Enum.Parse(property.PropertyType, node.Value));
+            }
+            else
+            {
+                property.SetValue(destination, Convert.ChangeType(node.Value, property.PropertyType));
+            }
         }
 
         private static void MapFromArray<T>(XNode xml, PropertyInfo property, T destination, SmartFormPrimitiveAttribute attribute)

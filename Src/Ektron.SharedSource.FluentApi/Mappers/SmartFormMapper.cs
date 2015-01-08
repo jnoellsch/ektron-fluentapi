@@ -25,7 +25,7 @@ namespace Ektron.SharedSource.FluentApi.Mappers
 
             if (string.IsNullOrWhiteSpace(source.Html)) return;
 
-            var xml = XDocument.Parse(source.Html);
+            var xml = XDocument.Parse(source.Html).Root;
 
             _complexMapper.Map(xml, destination);
             _primitiveMapper.Map(xml, destination);

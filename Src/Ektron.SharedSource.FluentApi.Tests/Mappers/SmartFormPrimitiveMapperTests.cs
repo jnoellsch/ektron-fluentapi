@@ -27,6 +27,23 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
                 Assert.AreEqual(result.Value, 123);
             }
 
+            [Test]
+            public void DerivedClassWork()
+            {
+                var sut = new ContentData
+                {
+                    Html = @"<Sample>
+                                <Value>123</Value>
+                                <Value2>234</Value2>
+                            </Sample>"
+                };
+
+                var result = sut.AsContentType<DerivedIntegerResult>();
+
+                Assert.AreEqual(result.Value, 123);
+                Assert.AreEqual(result.Value2, 234);
+            }
+
             public void ReadString()
             {
                 var sut = new ContentData
@@ -78,28 +95,61 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mappers
                 Assert.AreEqual(result.Value.Skip(2).First(), 345);
             }
 
+            [Test]
+            public void ReadEnum()
+            {
+                var sut = new ContentData
+                {
+                    Html = @"<Sample>
+                                <Value>1</Value>
+                            </Sample>"
+                };
+
+                var result = sut.AsContentType<EnumResult>();
+
+                Assert.AreEqual(result.Value, EnumOptions.Second);
+            }
+
             public class IntegerResult
             {
-                [SmartFormPrimitive("/Sample/Value")]
+                [SmartFormPrimitive("./Value")]
                 public int Value { get; set; }
+            }
+
+            public class DerivedIntegerResult : IntegerResult
+            {
+                [SmartFormPrimitive("./Value2")]
+                public int Value2 { get; set; }
             }
 
             public class StringResult
             {
-                [SmartFormPrimitive("/Sample/Value")]
+                [SmartFormPrimitive("./Value")]
                 public string Value { get; set; }
             }
 
             public class DateTimeResult
             {
-                [SmartFormPrimitive("/Sample/Value")]
+                [SmartFormPrimitive("./Value")]
                 public DateTime Value { get; set; }
             }
 
             public class EnumerableResult
             {
-                [SmartFormPrimitive("/Sample/Value")]
+                [SmartFormPrimitive("./Value")]
                 public IEnumerable<int> Value { get; set; }
+            }
+
+            public class EnumResult
+            {
+                [SmartFormPrimitive("./Value")]
+                public EnumOptions Value { get; set; }
+            }
+
+            public enum EnumOptions
+            {
+                First = 0,
+                Second = 1
             }
         }
     }
