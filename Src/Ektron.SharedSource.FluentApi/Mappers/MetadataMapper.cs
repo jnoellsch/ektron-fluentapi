@@ -37,7 +37,7 @@ namespace Ektron.SharedSource.FluentApi.Mappers
         private static Action<ContentData, T> GetPrimitiveMapping<T>(PropertyInfo propertyInfo, MetadataAttribute attribute) where T : new()
         {
             var mapToPropertyType = StringMapper.GetMapping(propertyInfo.PropertyType);
-            var tempPropertyInfo = propertyInfo;
+            var setter = ExpressionUtil.GetPropertySetter<T>(propertyInfo);
 
             return (contentData, t) =>
             {
@@ -45,14 +45,14 @@ namespace Ektron.SharedSource.FluentApi.Mappers
                 if (metadata == null) return;
 
                 var value = mapToPropertyType(metadata.Text);
-                tempPropertyInfo.SetValue(t, value);
+                setter(t, value);
             };
         }
 
         private static Action<ContentData, T> GetEnumerableMapping<T>(PropertyInfo propertyInfo, MetadataAttribute attribute) where T : new()
         {
             var mapToPropertyType = StringMapper.GetEnumerableMapping(propertyInfo.PropertyType);
-            var tempPropertyInfo = propertyInfo;
+            var setter = ExpressionUtil.GetPropertySetter<T>(propertyInfo);
 
             return (contentData, t) =>
             {
@@ -62,7 +62,7 @@ namespace Ektron.SharedSource.FluentApi.Mappers
                 var splitString = metadata.Text.Split(metadata.Separator[0]);
                 var value = mapToPropertyType(splitString);
 
-                tempPropertyInfo.SetValue(t, value);
+                setter(t, value);
             };
         }
     }

@@ -42,6 +42,7 @@ namespace Ektron.SharedSource.FluentApi.Mappers
         {
             var propertyType = propertyInfo.PropertyType;
             var subMapping = GetSubMapping(propertyType);
+            var setter = ExpressionUtil.GetPropertySetter<T>(propertyInfo);
 
             return (xml, t) =>
             {
@@ -51,7 +52,7 @@ namespace Ektron.SharedSource.FluentApi.Mappers
                 var complexType = Activator.CreateInstance(propertyType);
                 subMapping.GetMethodInfo().Invoke(subMapping.Target, new[] { node, complexType });
 
-                propertyInfo.SetValue(t, complexType);
+                setter(t, complexType);
             };
         }
 
@@ -62,6 +63,7 @@ namespace Ektron.SharedSource.FluentApi.Mappers
             var constructedListType = listType.MakeGenericType(propertyType);
             var addMethod = constructedListType.GetMethod("Add");
             var subMapping = GetSubMapping(propertyType);
+            var setter = ExpressionUtil.GetPropertySetter<T>(propertyInfo);
 
             return (xml, t) =>
             {
@@ -78,7 +80,7 @@ namespace Ektron.SharedSource.FluentApi.Mappers
                     addMethod.Invoke(listInstance, new[] { complexType });
                 }
 
-                propertyInfo.SetValue(t, listInstance);
+                setter(t, listInstance);
             };
         }
 

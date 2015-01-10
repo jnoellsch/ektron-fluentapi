@@ -42,7 +42,7 @@ namespace Ektron.SharedSource.FluentApi.Mappers
         private static Action<XNode, T> GetPrimitiveMapping<T>(PropertyInfo propertyInfo, SmartFormPrimitiveAttribute attribute) where T : new()
         {
             var mapToPropertyType = StringMapper.GetMapping(propertyInfo.PropertyType);
-            var tempPropertyInfo = propertyInfo;
+            var setter = ExpressionUtil.GetPropertySetter<T>(propertyInfo);
 
             return (xml, t) =>
             {
@@ -52,14 +52,14 @@ namespace Ektron.SharedSource.FluentApi.Mappers
                 var xmlText = element.Value;
                 var value = mapToPropertyType(xmlText);
 
-                tempPropertyInfo.SetValue(t, value);
+                setter(t, value);
             };
         }
 
         private static Action<XNode, T> GetEnumerableMapping<T>(PropertyInfo propertyInfo, SmartFormPrimitiveAttribute attribute) where T : new()
         {
             var mapToPropertyType = StringMapper.GetEnumerableMapping(propertyInfo.PropertyType);
-            var tempPropertyInfo = propertyInfo;
+            var setter = ExpressionUtil.GetPropertySetter<T>(propertyInfo);
 
             return (xml, t) =>
             {
@@ -69,7 +69,7 @@ namespace Ektron.SharedSource.FluentApi.Mappers
                 var xmlTexts = elements.Select(x => x.Value);
                 var value = mapToPropertyType(xmlTexts);
 
-                tempPropertyInfo.SetValue(t, value);
+                setter(t, value);
             };
         }
     }
