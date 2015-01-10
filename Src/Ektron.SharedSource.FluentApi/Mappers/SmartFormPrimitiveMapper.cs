@@ -1,64 +1,76 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using Ektron.Cms;
 using Ektron.SharedSource.FluentApi.ModelAttributes;
 
 namespace Ektron.SharedSource.FluentApi.Mappers
 {
     internal static class SmartFormPrimitiveMapper
     {
-        public static void Map<T>(XNode xml, T destination) where T : class
+        public static Action<XNode, T> GetMapping<T>() where T : new()
         {
-            if (xml == null) throw new ArgumentNullException("xml");
-            if (destination == null) throw new ArgumentNullException("destination");
-
             var properties = typeof(T).GetProperties();
+            var propertyMappings = new List<Action<XNode, T>>();
 
             foreach (var propertyInfo in properties)
             {
-                MapProperty(xml, propertyInfo, destination);
+                var attribute = propertyInfo.GetCustomAttribute<SmartFormPrimitiveAttribute>();
+                if (attribute == null) continue;
+                if (string.IsNullOrWhiteSpace(attribute.Xpath)) continue;
+
+                if (StringMapper.IsMappable(propertyInfo.PropertyType))
+                {
+                    propertyMappings.Add(GetPrimitiveMapping<T>(propertyInfo, attribute));
+                }
+                else if (StringMapper.IsMappableEnumerable(propertyInfo.PropertyType))
+                {
+                    propertyMappings.Add(GetEnumerableMapping<T>(propertyInfo, attribute));
+                }
             }
+
+            Action<XNode, T> combinedMapping =
+                (xml, t) => propertyMappings.ForEach(mapping => mapping(xml, t));
+
+            return combinedMapping;
         }
 
-        private static void MapProperty<T>(XNode xml, PropertyInfo property, T destination)
+        private static Action<XNode, T> GetPrimitiveMapping<T>(PropertyInfo propertyInfo, SmartFormPrimitiveAttribute attribute) where T : new()
         {
-            var attribute = property.GetCustomAttributes<SmartFormPrimitiveAttribute>().SingleOrDefault();
+            var mapToPropertyType = StringMapper.GetMapping(propertyInfo.PropertyType);
+            var tempPropertyInfo = propertyInfo;
 
-            if (attribute == null) return;
-
-            var xpath = attribute.Xpath;
-
-            if (typeof (IEnumerable).IsAssignableFrom(property.PropertyType))
+            return (xml, t) =>
             {
-                MapEnumerable(xml, property, destination, xpath);
-            }
-            else
+                var element = xml.XPathSelectElement(attribute.Xpath);
+                if (element == null) return;
+
+                var xmlText = element.Value;
+                var value = mapToPropertyType(xmlText);
+
+                tempPropertyInfo.SetValue(t, value);
+            };
+        }
+
+        private static Action<XNode, T> GetEnumerableMapping<T>(PropertyInfo propertyInfo, SmartFormPrimitiveAttribute attribute) where T : new()
+        {
+            var mapToPropertyType = StringMapper.GetEnumerableMapping(propertyInfo.PropertyType);
+            var tempPropertyInfo = propertyInfo;
+
+            return (xml, t) =>
             {
-                MapBasic(xml, property, destination, xpath);
-            }
-        }
+                var elements = xml.XPathSelectElements(attribute.Xpath);
+                if (!elements.Any()) return;
 
-        private static void MapBasic<T>(XNode xml, PropertyInfo property, T destination, string xpath)
-        {
-            var node = xml.XPathSelectElement(xpath);
+                var xmlTexts = elements.Select(x => x.Value);
+                var value = mapToPropertyType(xmlTexts);
 
-            if (node == null) return;
-
-            var value = StringMapper.Map(node.Value, property.PropertyType);
-
-            property.SetValue(destination, value);
-        }
-
-        private static void MapEnumerable<T>(XNode xml, PropertyInfo property, T destination, string xpath)
-        {
-            var nodes = xml.XPathSelectElements(xpath).Select(x => x.Value).ToList();
-
-            var value = StringMapper.Map(nodes, property.PropertyType);
-
-            property.SetValue(destination, value);
+                tempPropertyInfo.SetValue(t, value);
+            };
         }
     }
 }

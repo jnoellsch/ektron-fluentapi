@@ -11,77 +11,104 @@ namespace Ektron.SharedSource.FluentApi.Mappers
 {
     internal static class SmartFormComplexMapper
     {
-        public static void Map<T>(XNode xml, T destination) where T : class
+        public static Action<XNode, T> GetMapping<T>() where T : new()
         {
-            if (xml == null) throw new ArgumentNullException("xml");
-            if (destination == null) throw new ArgumentNullException("xml");
-
             var properties = typeof(T).GetProperties();
+            var propertyMappings = new List<Action<XNode, T>>();
 
             foreach (var propertyInfo in properties)
             {
-                MapProperty(xml, propertyInfo, destination);
+                var attribute = propertyInfo.GetCustomAttribute<SmartFormComplexAttribute>();
+                if (attribute == null) continue;
+                if (string.IsNullOrWhiteSpace(attribute.Xpath)) continue;
+
+                if (typeof(IEnumerable).IsAssignableFrom(propertyInfo.PropertyType))
+                {
+                    propertyMappings.Add(GetEnumerableMapping<T>(propertyInfo, attribute.Xpath));
+                }
+                else
+                {
+                    propertyMappings.Add(GetBasicMapping<T>(propertyInfo, attribute.Xpath));
+                }
             }
+
+            Action<XNode, T> combinedMapping =
+                (xml, t) => propertyMappings.ForEach(mapping => mapping(xml, t));
+
+            return combinedMapping;
         }
 
-        private static void MapProperty<T>(XNode xml, PropertyInfo property, T destination)
+        public static Action<XNode, T> GetBasicMapping<T>(PropertyInfo propertyInfo, string xpath) where T : new()
         {
-            var attribute = property.GetCustomAttributes<SmartFormComplexAttribute>().SingleOrDefault();
+            var propertyType = propertyInfo.PropertyType;
+            var subMapping = GetSubMapping(propertyType);
 
-            if (attribute == null) return;
-
-            if (typeof(IEnumerable).IsAssignableFrom(property.PropertyType))
+            return (xml, t) =>
             {
-                MapFromArray(xml, property, destination, attribute);
-            }
-            else
-            {
-                MapFromValue(xml, property, destination, attribute);
-            }
+                var node = xml.XPathSelectElement(xpath);
+                if (node == null) return;
+
+                var complexType = Activator.CreateInstance(propertyType);
+                subMapping.GetMethodInfo().Invoke(subMapping.Target, new[] { node, complexType });
+
+                propertyInfo.SetValue(t, complexType);
+            };
         }
 
-        private static void MapFromValue(XNode xml, PropertyInfo property, object destination, SmartFormComplexAttribute attribute)
+        public static Action<XNode, T> GetEnumerableMapping<T>(PropertyInfo propertyInfo, string xpath) where T : new()
         {
-            var node = xml.XPathSelectElement(attribute.Xpath);
-
-            if (node == null) return;
-
-            var complex = Activator.CreateInstance(property.PropertyType);
-
-            property.SetValue(destination, complex);
-
-            var map = typeof(SmartFormPrimitiveMapper).GetMethod("Map").MakeGenericMethod(property.PropertyType);
-            map.Invoke(null, new[] { node, complex });
-
-            Map(node, complex);
-        }
-
-        private static void MapFromArray(XNode xml, PropertyInfo property, object destination, SmartFormComplexAttribute attribute)
-        {
-            var nodes = xml.XPathSelectElements(attribute.Xpath).ToList();
-
-            if (!nodes.Any()) return;
-
-            var propertyType = property.PropertyType.GetGenericArguments().First();
-
+            var propertyType = propertyInfo.PropertyType.GetGenericArguments().First();
             var listType = typeof(List<>);
             var constructedListType = listType.MakeGenericType(propertyType);
+            var addMethod = constructedListType.GetMethod("Add");
+            var subMapping = GetSubMapping(propertyType);
 
-            var instance = Activator.CreateInstance(constructedListType);
-            var add = constructedListType.GetMethod("Add");
-            var map = typeof(SmartFormPrimitiveMapper).GetMethod("Map").MakeGenericMethod(propertyType);
-
-            foreach (var node in nodes)
+            return (xml, t) =>
             {
-                var complex = Activator.CreateInstance(propertyType);
-                map.Invoke(null, new[] { node, complex });
+                var nodes = xml.XPathSelectElements(xpath).ToList();
+                if (!nodes.Any()) return;
 
-                Map(node, complex);
+                var listInstance = Activator.CreateInstance(constructedListType);
 
-                add.Invoke(instance, new[] { complex });
-            }
+                foreach (var node in nodes)
+                {
+                    var complexType = Activator.CreateInstance(propertyType);
+                    subMapping.GetMethodInfo().Invoke(subMapping.Target, new[] { node, complexType });
 
-            property.SetValue(destination, instance);
+                    addMethod.Invoke(listInstance, new[] { complexType });
+                }
+
+                propertyInfo.SetValue(t, listInstance);
+            };
+        }
+
+        public static Delegate GetSubMapping(Type complexType)
+        {
+            var subMappingMethod = typeof(SmartFormComplexMapper).GetMethod("GetSubMappingGeneric");
+            var genericSubMappingMethod = subMappingMethod.MakeGenericMethod(complexType);
+            
+            return (Delegate)genericSubMappingMethod.Invoke(null, null);
+        }
+
+        public static Action<XNode, T> GetSubMappingGeneric<T>() where T : new()
+        {
+            var complexType = typeof(T);
+
+            var primitiveGetMappingMethod = typeof(SmartFormPrimitiveMapper).GetMethod("GetMapping");
+            var genericPrimitiveGetMappingMethod = primitiveGetMappingMethod.MakeGenericMethod(complexType);
+
+            var primitiveMapping = (Action<XNode, T>)genericPrimitiveGetMappingMethod.Invoke(null, null);
+
+            var complexGetMappingMethod = typeof(SmartFormComplexMapper).GetMethod("GetMapping");
+            var genericComplexGetMappingMethod = complexGetMappingMethod.MakeGenericMethod(complexType);
+
+            var complexMapping = (Action<XNode, T>)genericComplexGetMappingMethod.Invoke(null, null);
+
+            return (xml, t) =>
+            {
+                primitiveMapping(xml, t);
+                complexMapping(xml, t);
+            };
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Ektron.Cms;
@@ -8,28 +9,33 @@ namespace Ektron.SharedSource.FluentApi.Mappers
 {
     internal static class ContentDataMapper
     {
-        public static void Map<T>(ContentData source, T destination)
+        public static Action<ContentData, T> GetMapping<T>() where T : new()
         {
             var properties = typeof(T).GetProperties();
+            var propertyMappings = new List<Action<ContentData, T>>();
 
             foreach (var propertyInfo in properties)
             {
-                Map(source, propertyInfo, destination);
+                var attribute = propertyInfo.GetCustomAttribute<ContentDataAttribute>();
+                if (attribute == null) continue;
+
+                var sourceProperty = typeof(ContentData).GetProperty(attribute.PropertyName);
+                if (sourceProperty == null) continue;
+
+                if (sourceProperty.PropertyType != propertyInfo.PropertyType)
+                    throw new Exception("To map ContentData properties, the source and destination types must match.");
+
+                var tempPropertyInfo = propertyInfo;
+                Action<ContentData, T> propertyMapping = (contentData, t) =>
+                {
+                    var value = sourceProperty.GetValue(contentData);
+                    tempPropertyInfo.SetValue(t, value);
+                };
+                
+                propertyMappings.Add(propertyMapping);
             }
-        }
 
-        private static void Map<T>(ContentData source, PropertyInfo property, T destination)
-        {
-            var contentDataProperty = property.GetCustomAttributes<ContentDataAttribute>().SingleOrDefault();
-
-            if (contentDataProperty == null) return;
-
-            var sourceProperty = typeof(ContentData).GetProperty(contentDataProperty.PropertyName);
-
-            if (sourceProperty == null) return;
-
-            var value = sourceProperty.GetValue(source);
-            property.SetValue(destination, value);
+            return (contentData, t) => propertyMappings.ForEach(mapping => mapping(contentData, t));
         }
     }
 }

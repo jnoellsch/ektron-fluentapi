@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace Ektron.SharedSource.FluentApi.ModelAttributes
 {

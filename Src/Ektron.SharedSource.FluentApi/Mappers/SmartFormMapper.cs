@@ -6,17 +6,19 @@ namespace Ektron.SharedSource.FluentApi.Mappers
 {
     internal static class SmartFormMapper
     {
-        public static void Map<T>(ContentData source, T destination) where T : class
+        public static Action<ContentData, T> GetMapping<T>() where T : new()
         {
-            if (source == null) throw new ArgumentNullException("source");
-            if (destination == null) throw new ArgumentNullException("xml");
+            var primitiveMapping = SmartFormPrimitiveMapper.GetMapping<T>();
+            var complexMapping = SmartFormComplexMapper.GetMapping<T>();
 
-            if (string.IsNullOrWhiteSpace(source.Html)) return;
+            return (contentData, t) =>
+            {
+                if (string.IsNullOrWhiteSpace(contentData.Html)) return;
+                var xml = XDocument.Parse(contentData.Html).Root;
 
-            var xml = XDocument.Parse(source.Html).Root;
-
-            SmartFormComplexMapper.Map(xml, destination);
-            SmartFormPrimitiveMapper.Map(xml, destination);
+                primitiveMapping(xml, t);
+                complexMapping(xml, t);
+            };
         }
     }
 }

@@ -17,9 +17,17 @@ namespace Ektron.SharedSource.FluentApi
         /// <typeparam name="T">Content Type to convert <see cref="ContentData"/> to.</typeparam>
         /// <param name="source">A set of <see cref="ContentData"/> to convert.</param>
         /// <returns>A set of content types.</returns>
-        public static IEnumerable<T> AsContentType<T>(this IEnumerable<ContentData> source) where T : class
+        public static IEnumerable<T> AsContentType<T>(this IEnumerable<ContentData> source) where T : new()
         {
-            return source.Select(AsContentType<T>);
+            var mapper = ClassMappingRegistry.GetMapper<T>();
+
+            return source.Select(x =>
+            {
+                var result = new T();
+                mapper(x, result);
+
+                return result;
+            });
         }
 
         /// <summary>
@@ -28,13 +36,12 @@ namespace Ektron.SharedSource.FluentApi
         /// <typeparam name="T">Content Type to convert <see cref="ContentData"/> to.</typeparam>
         /// <param name="source">The <see cref="ContentData"/> to convert.</param>
         /// <returns>A content type.</returns>
-        public static T AsContentType<T>(this ContentData source) where T : class
+        public static T AsContentType<T>(this ContentData source) where T : new()
         {
-            var result = Activator.CreateInstance<T>();
+            var result = new T();
+            var mapper = ClassMappingRegistry.GetMapper<T>();
 
-            SmartFormMapper.Map(source, result);
-            MetadataMapper.Map(source, result);
-            ContentDataMapper.Map(source, result);
+            mapper(source, result);
 
             return result;
         }
