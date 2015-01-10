@@ -63,7 +63,7 @@ namespace Ektron.SharedSource.FluentApi.Mappers
             var constructedListType = listType.MakeGenericType(propertyType);
             var addMethod = constructedListType.GetMethod("Add");
             var subMapping = GetSubMapping(propertyType);
-            var setter = ExpressionUtil.GetPropertySetter<T>(propertyInfo);
+            var setProperty = ExpressionUtil.GetPropertySetter<T>(propertyInfo);
 
             return (xml, t) =>
             {
@@ -80,7 +80,7 @@ namespace Ektron.SharedSource.FluentApi.Mappers
                     addMethod.Invoke(listInstance, new[] { complexType });
                 }
 
-                setter(t, listInstance);
+                setProperty(t, listInstance);
             };
         }
 
