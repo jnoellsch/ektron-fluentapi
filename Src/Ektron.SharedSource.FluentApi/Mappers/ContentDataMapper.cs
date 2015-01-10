@@ -25,6 +25,9 @@ namespace Ektron.SharedSource.FluentApi.Mappers
                 if (sourceProperty.PropertyType != propertyInfo.PropertyType)
                     throw new Exception("To map ContentData properties, the source and destination types must match.");
 
+                //var getter = ExpressionUtil.GetPropertyGetter<ContentData>(sourceProperty);
+                //var setter = ExpressionUtil.GetPropertySetter<T>(propertyInfo);
+
                 var tempPropertyInfo = propertyInfo;
                 Action<ContentData, T> propertyMapping = (contentData, t) =>
                 {

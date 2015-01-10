@@ -71,7 +71,8 @@
     <Compile Include="FilterContent.cs" />
     <Compile Include="FilterContentCollection.cs" />
     <Compile Include="Mappers\ContentDataMapper.cs" />
-    <Compile Include="Mappers\ClassMappingRegistry.cs" />
+    <Compile Include="Mappers\MappingRegistry.cs" />
+    <Compile Include="Mappers\ExpressionUtil.cs" />
     <Compile Include="Mappers\MetadataMapper.cs" />
     <Compile Include="Mappers\SmartFormComplexMapper.cs" />
     <Compile Include="Mappers\SmartFormMapper.cs" />

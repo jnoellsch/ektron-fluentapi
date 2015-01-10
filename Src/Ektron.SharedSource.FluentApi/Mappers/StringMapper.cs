@@ -31,7 +31,7 @@ namespace Ektron.SharedSource.FluentApi.Mappers
             var listType = typeof(List<>);
             var constructedListType = listType.MakeGenericType(genericType);
 
-            var add = constructedListType.GetMethod("Add");
+            var addMethod = constructedListType.GetMethod("Add");
 
             return values =>
             {
@@ -41,7 +41,7 @@ namespace Ektron.SharedSource.FluentApi.Mappers
 
                 foreach (var value in values)
                 {
-                    add.Invoke(instance, new[] {genericMapping(value)});
+                    addMethod.Invoke(instance, new[] {genericMapping(value)});
                 }
 
                 return instance;
