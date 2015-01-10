@@ -31,10 +31,7 @@ namespace Ektron.SharedSource.FluentApi.Mappers
                 }
             }
 
-            Action<ContentData, T> combinedMapping =
-                (contentData, t) => propertyMappings.ForEach(mapping => mapping(contentData, t));
-
-            return combinedMapping;
+            return (contentData, t) => propertyMappings.ForEach(mapping => mapping(contentData, t));
         }
 
         private static Action<ContentData, T> GetPrimitiveMapping<T>(PropertyInfo propertyInfo, MetadataAttribute attribute) where T : new()
