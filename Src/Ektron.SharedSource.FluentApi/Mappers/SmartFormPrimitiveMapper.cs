@@ -63,7 +63,7 @@ namespace Ektron.SharedSource.FluentApi.Mappers
 
             return (xml, t) =>
             {
-                var elements = xml.XPathSelectElements(attribute.Xpath);
+                var elements = xml.XPathSelectElements(attribute.Xpath).ToList();
                 if (!elements.Any()) return;
 
                 var xmlTexts = elements.Select(x => x.Value);
