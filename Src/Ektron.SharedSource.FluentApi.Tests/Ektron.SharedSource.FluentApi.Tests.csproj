@@ -76,10 +76,10 @@
   <ItemGroup>
     <Compile Include="ContentCollectionCriteriaTests.cs" />
     <Compile Include="ContentCriteriaTests.cs" />
-    <Compile Include="Mappers\ContentDataMapperTests.cs" />
-    <Compile Include="Mappers\MetadataMapperTests.cs" />
-    <Compile Include="Mappers\SmartFormComplexMapperTests.cs" />
-    <Compile Include="Mappers\SmartFormPrimitiveMapperTests.cs" />
+    <Compile Include="Mapping\ContentDataMapperTests.cs" />
+    <Compile Include="Mapping\MetadataMapperTests.cs" />
+    <Compile Include="Mapping\SmartFormComplexMapperTests.cs" />
+    <Compile Include="Mapping\SmartFormPrimitiveMapperTests.cs" />
     <Compile Include="FilterContentTests.cs" />
     <Compile Include="FilterContentCollectionTests.cs" />
     <Compile Include="FilterFolderTests.cs" />

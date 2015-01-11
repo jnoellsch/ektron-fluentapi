@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Ektron.SharedSource.FluentApi.Mappers
+namespace Ektron.SharedSource.FluentApi.Mapping
 {
     internal static class StringMapper
     {

@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Ektron.SharedSource.FluentApi.Mappers
+namespace Ektron.SharedSource.FluentApi.Mapping
 {
     internal static class ExpressionUtil
     {

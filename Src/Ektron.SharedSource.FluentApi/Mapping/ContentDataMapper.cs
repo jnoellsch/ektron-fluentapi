@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using Ektron.Cms;
-using Ektron.SharedSource.FluentApi.ModelAttributes;
+using Ektron.SharedSource.FluentApi.Mapping.Attributes;
 
-namespace Ektron.SharedSource.FluentApi.Mappers
+namespace Ektron.SharedSource.FluentApi.Mapping
 {
     internal static class ContentDataMapper
     {

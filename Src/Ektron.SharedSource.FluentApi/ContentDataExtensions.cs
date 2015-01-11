@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Ektron.Cms;
-using Ektron.SharedSource.FluentApi.Mappers;
+using Ektron.SharedSource.FluentApi.Mapping;
 
 namespace Ektron.SharedSource.FluentApi
 {

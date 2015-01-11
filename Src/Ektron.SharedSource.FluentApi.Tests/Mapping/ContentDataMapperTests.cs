@@ -1,10 +1,10 @@
 ﻿using System;
 using Ektron.Cms;
-using Ektron.SharedSource.FluentApi.Mappers;
-using Ektron.SharedSource.FluentApi.ModelAttributes;
+using Ektron.SharedSource.FluentApi.Mapping;
+using Ektron.SharedSource.FluentApi.Mapping.Attributes;
 using NUnit.Framework;
 
-namespace Ektron.SharedSource.FluentApi.Tests.Mappers
+namespace Ektron.SharedSource.FluentApi.Tests.Mapping
 {
     public class ContentDataMapperTests
     {

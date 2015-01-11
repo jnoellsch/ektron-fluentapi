@@ -1,7 +1,7 @@
 ﻿using System;
 using Ektron.Cms;
 
-namespace Ektron.SharedSource.FluentApi.ModelAttributes
+namespace Ektron.SharedSource.FluentApi.Mapping.Attributes
 {
     /// <summary>
     /// Attribute indicating the name of the property on the <see cref="ContentData"/> to find the value.

@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using Ektron.Cms;
 
-namespace Ektron.SharedSource.FluentApi.Mappers
+namespace Ektron.SharedSource.FluentApi.Mapping
 {
     public static class MappingRegistry
     {

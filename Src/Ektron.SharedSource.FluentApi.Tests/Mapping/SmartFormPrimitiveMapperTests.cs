@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.XPath;
 using Ektron.Cms;
-using Ektron.SharedSource.FluentApi.ModelAttributes;
+using Ektron.SharedSource.FluentApi.Mapping.Attributes;
 using NUnit.Framework;
 
-namespace Ektron.SharedSource.FluentApi.Tests.Mappers
+namespace Ektron.SharedSource.FluentApi.Tests.Mapping
 {
     public class SmartFormPrimitiveMapperTests
     {

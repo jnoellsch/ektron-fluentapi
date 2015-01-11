@@ -2,7 +2,7 @@
 using System.Xml.Linq;
 using Ektron.Cms;
 
-namespace Ektron.SharedSource.FluentApi.Mappers
+namespace Ektron.SharedSource.FluentApi.Mapping
 {
     internal static class SmartFormMapper
     {
