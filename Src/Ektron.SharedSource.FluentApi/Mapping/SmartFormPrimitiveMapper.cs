@@ -23,7 +23,7 @@ namespace Ektron.SharedSource.FluentApi.Mapping
 
                 if (StringMapper.IsMappable(propertyInfo.PropertyType))
                 {
-                    propertyMappings.Add(GetPrimitiveMapping<T>(propertyInfo, attribute));
+                    propertyMappings.Add(GetSingleMapping<T>(propertyInfo, attribute));
                 }
                 else if (StringMapper.IsMappableEnumerable(propertyInfo.PropertyType))
                 {
@@ -31,13 +31,10 @@ namespace Ektron.SharedSource.FluentApi.Mapping
                 }
             }
 
-            Action<XNode, T> combinedMapping =
-                (xml, t) => propertyMappings.ForEach(mapping => mapping(xml, t));
-
-            return combinedMapping;
+            return (xml, t) => propertyMappings.ForEach(mapping => mapping(xml, t));
         }
 
-        private static Action<XNode, T> GetPrimitiveMapping<T>(PropertyInfo propertyInfo, SmartFormPrimitiveAttribute attribute) where T : new()
+        private static Action<XNode, T> GetSingleMapping<T>(PropertyInfo propertyInfo, SmartFormPrimitiveAttribute attribute) where T : new()
         {
             var mapToPropertyType = StringMapper.GetMapping(propertyInfo.PropertyType);
             var setProperty = ExpressionUtil.GetPropertySetter<T>(propertyInfo);
@@ -47,8 +44,7 @@ namespace Ektron.SharedSource.FluentApi.Mapping
                 var element = xml.XPathSelectElement(attribute.Xpath);
                 if (element == null) return;
 
-                var xmlText = element.Value;
-                var value = mapToPropertyType(xmlText);
+                var value = mapToPropertyType(element.Value);
 
                 setProperty(t, value);
             };

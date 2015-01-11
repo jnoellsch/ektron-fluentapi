@@ -18,32 +18,30 @@ namespace Ektron.SharedSource.FluentApi.Mapping
                 var attribute = propertyInfo.GetCustomAttribute<ContentDataAttribute>();
                 if (attribute == null) continue;
 
-                var sourceProperty = typeof(ContentData).GetProperty(attribute.PropertyName);
-                if (sourceProperty == null) continue;
+                var sourcePropertyInfo = typeof(ContentData).GetProperty(attribute.PropertyName);
+                if (sourcePropertyInfo == null) continue;
 
-                if (sourceProperty.PropertyType != propertyInfo.PropertyType)
+                if (sourcePropertyInfo.PropertyType != propertyInfo.PropertyType)
                     throw new Exception("To map ContentData properties, the source and destination types must match.");
 
-                var getProperty = ExpressionUtil.GetPropertyGetter<ContentData>(sourceProperty);
-                var setProperty = ExpressionUtil.GetPropertySetter<T>(propertyInfo);
+                var propertyMapping = GetPropertyMapping<T>(sourcePropertyInfo, propertyInfo);
 
-                Action<ContentData, T> propertyMapping = (contentData, t) =>
-                {
-                    var value = getProperty(contentData);
-                    setProperty(t, value);
-                };
-
-                //var tempPropertyInfo = propertyInfo;
-                //Action<ContentData, T> propertyMapping = (contentData, t) =>
-                //{
-                //    var value = sourceProperty.GetValue(contentData);
-                //    tempPropertyInfo.SetValue(t, value);
-                //};
-                
                 propertyMappings.Add(propertyMapping);
             }
 
             return (contentData, t) => propertyMappings.ForEach(mapping => mapping(contentData, t));
+        }
+
+        private static Action<ContentData, T> GetPropertyMapping<T>(PropertyInfo sourcePropertyInfo, PropertyInfo propertyInfo) where T : new()
+        {
+            var getProperty = ExpressionUtil.GetPropertyGetter<ContentData>(sourcePropertyInfo);
+            var setProperty = ExpressionUtil.GetPropertySetter<T>(propertyInfo);
+
+            return (contentData, t) =>
+            {
+                var value = getProperty(contentData);
+                setProperty(t, value);
+            };
         }
     }
 }

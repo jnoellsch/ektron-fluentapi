@@ -28,17 +28,14 @@ namespace Ektron.SharedSource.FluentApi.Mapping
                 }
                 else
                 {
-                    propertyMappings.Add(GetBasicMapping<T>(propertyInfo, attribute.Xpath));
+                    propertyMappings.Add(GetSingleMapping<T>(propertyInfo, attribute.Xpath));
                 }
             }
 
-            Action<XNode, T> combinedMapping =
-                (xml, t) => propertyMappings.ForEach(mapping => mapping(xml, t));
-
-            return combinedMapping;
+            return (xml, t) => propertyMappings.ForEach(mapping => mapping(xml, t));
         }
 
-        public static Action<XNode, T> GetBasicMapping<T>(PropertyInfo propertyInfo, string xpath) where T : new()
+        public static Action<XNode, T> GetSingleMapping<T>(PropertyInfo propertyInfo, string xpath) where T : new()
         {
             var propertyType = propertyInfo.PropertyType;
             var subMapping = GetSubMapping(propertyType);
