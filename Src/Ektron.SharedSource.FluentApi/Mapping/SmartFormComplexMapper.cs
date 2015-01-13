@@ -43,11 +43,11 @@ namespace Ektron.SharedSource.FluentApi.Mapping
 
             return (xml, t) =>
             {
-                var node = xml.XPathSelectElement(xpath);
-                if (node == null) return;
+                var element = xml.XPathSelectElement(xpath);
+                if (element == null) return;
 
                 var complexType = Activator.CreateInstance(propertyType);
-                subMapping.GetMethodInfo().Invoke(subMapping.Target, new[] { node, complexType });
+                subMapping.GetMethodInfo().Invoke(subMapping.Target, new[] { element, complexType });
 
                 setter(t, complexType);
             };
@@ -64,15 +64,15 @@ namespace Ektron.SharedSource.FluentApi.Mapping
 
             return (xml, t) =>
             {
-                var nodes = xml.XPathSelectElements(xpath).ToList();
-                if (!nodes.Any()) return;
+                var elements = xml.XPathSelectElements(xpath).ToList();
+                if (!elements.Any()) return;
 
                 var listInstance = Activator.CreateInstance(constructedListType);
 
-                foreach (var node in nodes)
+                foreach (var element in elements)
                 {
                     var complexType = Activator.CreateInstance(propertyType);
-                    subMapping.GetMethodInfo().Invoke(subMapping.Target, new[] { node, complexType });
+                    subMapping.GetMethodInfo().Invoke(subMapping.Target, new[] { element, complexType });
 
                     addMethod.Invoke(listInstance, new[] { complexType });
                 }

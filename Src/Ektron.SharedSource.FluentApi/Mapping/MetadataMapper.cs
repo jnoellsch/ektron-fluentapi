@@ -40,10 +40,9 @@ namespace Ektron.SharedSource.FluentApi.Mapping
 
             return (contentData, t) =>
             {
-                var metadata = contentData.MetaData.SingleOrDefault(x => x.Name == attribute.FieldName);
-                if (metadata == null) return;
-
+                var metadata = GetMetadata(contentData, attribute.FieldName);
                 var value = mapToPropertyType(metadata.Text);
+
                 setProperty(t, value);
             };
         }
@@ -55,14 +54,20 @@ namespace Ektron.SharedSource.FluentApi.Mapping
 
             return (contentData, t) =>
             {
-                var metadata = contentData.MetaData.SingleOrDefault(x => x.Name == attribute.FieldName);
-                if (metadata == null) return;
+                var metadata = GetMetadata(contentData, attribute.FieldName);
+                var rawValues = metadata.Text.Split(metadata.Separator[0]);
+                var values = mapToPropertyType(rawValues);
 
-                var splitString = metadata.Text.Split(metadata.Separator[0]);
-                var value = mapToPropertyType(splitString);
-
-                setProperty(t, value);
+                setProperty(t, values);
             };
+        }
+
+        private static ContentMetaData GetMetadata(ContentData contentData, string fieldName)
+        {
+            var metadata = contentData.MetaData.SingleOrDefault(x => x.Name == fieldName);
+            if (metadata == null) throw new Exception("Metadata field does not exist.");
+
+            return metadata;
         }
     }
 }

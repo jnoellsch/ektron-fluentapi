@@ -60,10 +60,10 @@ namespace Ektron.SharedSource.FluentApi.Mapping
                 var elements = xml.XPathSelectElements(attribute.Xpath).ToList();
                 if (!elements.Any()) return;
 
-                var xmlTexts = elements.Select(x => x.Value);
-                var value = mapToPropertyType(xmlTexts);
+                var rawValues = elements.Select(x => x.Value);
+                var values = mapToPropertyType(rawValues);
 
-                setProperty(t, value);
+                setProperty(t, values);
             };
         }
     }

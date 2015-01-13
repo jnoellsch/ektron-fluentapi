@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Ektron.Cms;
+using Ektron.SharedSource.FluentApi.Mapping;
 using Ektron.SharedSource.FluentApi.Mapping.Attributes;
 using NUnit.Framework;
 
@@ -125,6 +126,29 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mapping
 
                 Assert.AreEqual(result.Values.First(), EnumOptions.First);
                 Assert.AreEqual(result.Values.Skip(1).First(), EnumOptions.Second);
+            }
+
+            [Test]
+            public void LoadTest()
+            {
+                MappingRegistry.RegisterType<EnumerableResult>();
+                var sut = new ContentData
+                {
+                    Html = @"<Sample>
+                                <Value>123</Value>
+                                <Value>234</Value>
+                                <Value>345</Value>
+                            </Sample>"
+                };
+
+                var start = DateTime.Now;
+                for (var i = 0; i < 30000; i++)
+                {
+                    var result = sut.AsContentType<EnumerableResult>();
+                }
+                var end = DateTime.Now;
+
+                Console.WriteLine(end - start);
             }
 
             public class IntegerResult
