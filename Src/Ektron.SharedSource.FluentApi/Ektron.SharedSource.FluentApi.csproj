@@ -68,8 +68,19 @@
     <Compile Include="ContentDataExtensions.cs" />
     <Compile Include="Filter.cs" />
     <Compile Include="ContentCollectionCriteriaExtensions.cs" />
-    <Compile Include="FilterContent.cs" />
-    <Compile Include="FilterContentCollection.cs" />
+    <Compile Include="FilterContent.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FilterContentCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FilterFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FilterTaxonomy.cs" />
+    <Compile Include="FilterMenu.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Mapping\ContentDataMapper.cs" />
     <Compile Include="Mapping\MappingRegistry.cs" />
     <Compile Include="Mapping\ExpressionUtil.cs" />
@@ -82,11 +93,10 @@
     <Compile Include="Mapping\Attributes\MetadataAttribute.cs" />
     <Compile Include="Mapping\Attributes\SmartFormComplexAttribute.cs" />
     <Compile Include="Mapping\Attributes\SmartFormPrimitiveAttribute.cs" />
-    <Compile Include="FilterFolder.cs" />
-    <Compile Include="FilterMenu.cs" />
     <Compile Include="FolderCriteriaExtensions.cs" />
     <Compile Include="MenuCriteriaExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaxonomyCriteriaExtensions.cs" />
     <Compile Include="UserCriteriaExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
