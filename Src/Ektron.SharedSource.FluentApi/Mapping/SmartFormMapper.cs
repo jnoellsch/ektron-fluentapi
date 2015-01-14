@@ -22,6 +22,8 @@ namespace Ektron.SharedSource.FluentApi.Mapping
             return (contentData, t) =>
             {
                 if (string.IsNullOrWhiteSpace(contentData.Html)) return;
+                if (contentData.XmlConfiguration.Id == 0) return;
+
                 var xml = XDocument.Parse(contentData.Html).Root;
 
                 primitiveMapping(xml, t);

@@ -9,7 +9,11 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <h1>it works!</h1>
+        <asp:Repeater runat="server" ID="rptrContent" ItemType="Ektron.SharedSource.Sandbox.Content">
+            <ItemTemplate>
+                <div><%# Item.Title %></div>
+            </ItemTemplate>
+        </asp:Repeater>
     </div>
     </form>
 </body>
