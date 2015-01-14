@@ -27,7 +27,7 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mapping
             [Test]
             public void LoadTest()
             {
-                MappingRegistry.RegisterType<DateResult>();
+                Mapper.RegisterType<DateResult>();
                 var sut = new ContentData()
                 {
                     DateCreated = DateTime.Now

@@ -131,7 +131,7 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mapping
             [Test]
             public void LoadTest()
             {
-                MappingRegistry.RegisterType<EnumerableResult>();
+                Mapper.RegisterType<EnumerableResult>();
                 var sut = new ContentData
                 {
                     Html = @"<Sample>

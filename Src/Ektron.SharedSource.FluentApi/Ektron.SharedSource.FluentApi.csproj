@@ -82,7 +82,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Mapping\ContentDataMapper.cs" />
-    <Compile Include="Mapping\MappingRegistry.cs" />
+    <Compile Include="Mapping\Mapper.cs" />
     <Compile Include="Mapping\ExpressionUtil.cs" />
     <Compile Include="Mapping\MetadataMapper.cs" />
     <Compile Include="Mapping\SmartFormComplexMapper.cs" />

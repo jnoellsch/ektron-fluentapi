@@ -4,8 +4,17 @@ using System.Reflection;
 
 namespace Ektron.SharedSource.FluentApi.Mapping
 {
+    /// <summary>
+    /// A helper class to help avoid using reflection during the actual mapping.
+    /// </summary>
     internal static class ExpressionUtil
     {
+        /// <summary>
+        /// Gets a method that gets the value of the property from a specific instance of a class T.
+        /// </summary>
+        /// <typeparam name="T">The type of the instance.</typeparam>
+        /// <param name="propertyInfo">The property that holds the value to get.</param>
+        /// <returns>A <see cref="Func"/> that can get the value.</returns>
         public static Func<T, object> GetPropertyGetter<T>(PropertyInfo propertyInfo) where T : new()
         {
             var tParam = Expression.Parameter(typeof(T), "t");
@@ -14,6 +23,12 @@ namespace Ektron.SharedSource.FluentApi.Mapping
             return Expression.Lambda<Func<T, object>>(getBody, tParam).Compile();
         }
 
+        /// <summary>
+        /// Gets a method that can set a property on an instance of a class T.
+        /// </summary>
+        /// <typeparam name="T">The type of the instance.</typeparam>
+        /// <param name="propertyInfo">The property to set.</param>
+        /// <returns>An <see cref="Action"/> that takes the value to set the property to.</returns>
         public static Action<T, object> GetPropertySetter<T>(PropertyInfo propertyInfo) where T : new()
         {
             var tParam = Expression.Parameter(typeof(T), "t");

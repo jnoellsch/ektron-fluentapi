@@ -18,7 +18,7 @@ namespace Ektron.SharedSource.FluentApi
         /// <returns>A set of content types.</returns>
         public static IEnumerable<T> AsContentType<T>(this IEnumerable<ContentData> source) where T : new()
         {
-            var mapping = MappingRegistry.GetMapping<T>();
+            var mapping = Mapper.GetMapping<T>();
 
             return source.Select(x =>
             {
@@ -38,7 +38,7 @@ namespace Ektron.SharedSource.FluentApi
         public static T AsContentType<T>(this ContentData source) where T : new()
         {
             var result = new T();
-            var mapping = MappingRegistry.GetMapping<T>();
+            var mapping = Mapper.GetMapping<T>();
 
             mapping(source, result);
 
