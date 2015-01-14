@@ -76,7 +76,9 @@
   <ItemGroup>
     <Compile Include="ContentCollectionCriteriaTests.cs" />
     <Compile Include="ContentCriteriaTests.cs" />
+    <Compile Include="ExpressionTests.cs" />
     <Compile Include="FilterTaxonomyTests.cs" />
+    <Compile Include="SearchCriteriaTests.cs" />
     <Compile Include="TaxonomyCriteriaTests.cs" />
     <Compile Include="Mapping\ContentDataMapperTests.cs" />
     <Compile Include="Mapping\MetadataMapperTests.cs" />
