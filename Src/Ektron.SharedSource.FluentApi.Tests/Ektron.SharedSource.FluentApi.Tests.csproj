@@ -38,6 +38,16 @@
     <Reference Include="Ektron.Cms.Contracts">
       <HintPath>..\..\lib\Ektron.9.1.0.184\Ektron.Cms.Contracts.dll</HintPath>
     </Reference>
+    <Reference Include="Ektron.Cms.ObjectFactory, Version=9.1.0.184, Culture=neutral, PublicKeyToken=559a2c4fa21e63be, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Ektron.9.1.0.184\Ektron.Cms.ObjectFactory.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\..\Lib\Unity.2.0.414.0\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\..\Lib\Unity.2.0.414.0\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="Moq">
       <HintPath>..\..\packages\Moq.4.2.1409.1722\lib\net40\Moq.dll</HintPath>
     </Reference>
