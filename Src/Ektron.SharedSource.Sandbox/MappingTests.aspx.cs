@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.UI;
+using Ektron.Cms.Common;
 using Ektron.Cms.Content;
 using Ektron.Cms.Framework.Content;
 using Ektron.SharedSource.FluentApi;
@@ -12,13 +13,7 @@ namespace Ektron.SharedSource.Sandbox
         protected void Page_Load(object sender, EventArgs e)
         {
             var manager = new ContentManager();
-
             var criteria = new ContentCriteria();
-
-            Mapper.RegisterMapping<Content>((contentData, t) =>
-            {
-                t.Title = t.Title.ToUpper();
-            });
 
             var items = manager.GetList(criteria).AsContentType<Content>();
 
