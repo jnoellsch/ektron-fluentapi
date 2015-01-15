@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using Ektron.Cms;
 
 namespace Ektron.SharedSource.FluentApi.Mapping
@@ -12,12 +13,16 @@ namespace Ektron.SharedSource.FluentApi.Mapping
         /// <summary>
         /// A collection to hold the registered mappings based on the type.
         /// </summary>
-        private static readonly ConcurrentDictionary<Type, object> _typeMappings = new ConcurrentDictionary<Type, object>();
+        private static readonly ConcurrentDictionary<Type, object> _defaultTypeMappings = new ConcurrentDictionary<Type, object>();
+
+        private static readonly ConcurrentDictionary<Type, List<object>> _additionalMappings = new ConcurrentDictionary<Type, List<object>>();
 
         /// <summary>
         /// A lock object to ensure multiple mappings for the same type aren't created.
         /// </summary>
-        private static readonly object _lock = new object();
+        private static readonly object _defaultTypeMappingslock = new object();
+
+        private static readonly object _additionalMappingslock = new object();
 
         /// <summary>
         /// Gets the registered mapping action for this <see cref="Type"/>.
@@ -28,12 +33,25 @@ namespace Ektron.SharedSource.FluentApi.Mapping
         {
             var type = typeof(T);
 
-            if (!_typeMappings.ContainsKey(type))
+            if (!_defaultTypeMappings.ContainsKey(type))
             {
                 RegisterType<T>();
             }
 
-            return (Action<ContentData, T>)_typeMappings[type];
+            var defaultMapping = (Action<ContentData, T>) _defaultTypeMappings[type];
+
+            if (!_additionalMappings.ContainsKey(type))
+            {
+                return defaultMapping;
+            }
+            else
+            {
+                return (contentData, t) =>
+                {
+                    defaultMapping(contentData, t);
+                    _additionalMappings[type].ForEach(mapping => ((Action<ContentData, T>) mapping)(contentData, t));
+                };
+            }
         }
 
         /// <summary>
@@ -44,9 +62,9 @@ namespace Ektron.SharedSource.FluentApi.Mapping
         {
             var type = typeof(T);
 
-            lock (_lock)
+            lock (_defaultTypeMappingslock)
             {
-                if (_typeMappings.ContainsKey(type)) return;
+                if (_defaultTypeMappings.ContainsKey(type)) return;
 
                 var contentDataMapping = ContentDataMapper.GetMapping<T>();
                 var metadataMapping = MetadataMapper.GetMapping<T>();
@@ -62,8 +80,23 @@ namespace Ektron.SharedSource.FluentApi.Mapping
                     smartFormMapping(contentData, t);
                 };
 
-                _typeMappings[type] = mapping;
+                _defaultTypeMappings[type] = mapping;
             }
+        }
+
+        public static void RegisterMapping<T>(Action<ContentData, T> mapping) where T : new()
+        {
+            var type = typeof(T);
+
+            lock (_additionalMappingslock)
+            {
+                if (!_additionalMappings.ContainsKey(type))
+                {
+                    _additionalMappings[type] = new List<object>();
+                }
+            }
+
+            _additionalMappings[type].Add(mapping);
         }
     }
 }
