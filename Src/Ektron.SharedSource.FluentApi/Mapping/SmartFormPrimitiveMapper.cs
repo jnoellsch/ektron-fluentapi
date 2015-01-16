@@ -59,7 +59,8 @@ namespace Ektron.SharedSource.FluentApi.Mapping
                 var element = xml.XPathSelectElement(xpath);
                 if (element == null) return;
 
-                var value = mapToPropertyType(element.Value);
+                var text = element.HasElements ? String.Concat(element.Nodes()) : element.Value;
+                var value = mapToPropertyType(text);
 
                 setProperty(t, value);
             };
