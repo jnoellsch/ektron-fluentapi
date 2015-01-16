@@ -91,8 +91,8 @@
     <Compile Include="TaxonomyCriteriaTests.cs" />
     <Compile Include="Mapping\ContentDataMapperTests.cs" />
     <Compile Include="Mapping\MetadataMapperTests.cs" />
-    <Compile Include="Mapping\SmartFormComplexMapperTests.cs" />
-    <Compile Include="Mapping\SmartFormPrimitiveMapperTests.cs" />
+    <Compile Include="Mapping\SmartFormObjectMapperTests.cs" />
+    <Compile Include="Mapping\SmartFormFieldValueMapperTests.cs" />
     <Compile Include="FilterContentTests.cs" />
     <Compile Include="FilterContentCollectionTests.cs" />
     <Compile Include="FilterFolderTests.cs" />
