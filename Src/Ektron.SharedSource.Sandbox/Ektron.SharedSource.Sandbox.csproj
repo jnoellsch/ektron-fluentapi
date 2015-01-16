@@ -48,8 +48,18 @@
     <Reference Include="Ektron.Cms.Contracts">
       <HintPath>..\..\Lib\Ektron.9.1.0.184\Ektron.Cms.Contracts.dll</HintPath>
     </Reference>
+    <Reference Include="Ektron.Cms.Controls">
+      <HintPath>..\..\Lib\Ektron.9.1.0.184\Ektron.Cms.Controls.dll</HintPath>
+    </Reference>
     <Reference Include="Ektron.Cms.Framework">
       <HintPath>..\..\Lib\Ektron.9.1.0.184\Ektron.Cms.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.ObjectFactory, Version=9.1.0.184, Culture=neutral, PublicKeyToken=559a2c4fa21e63be, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Ektron.9.1.0.184\Ektron.Cms.ObjectFactory.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Widget">
+      <HintPath>..\..\Lib\Ektron.9.1.0.184\Ektron.Cms.Widget.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
@@ -78,11 +88,44 @@
     <Compile Include="MappingTests.aspx.designer.cs">
       <DependentUpon>MappingTests.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\SearchTestModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Templates\TestSearchHtmlContent.aspx.cs">
+      <DependentUpon>TestSearchHtmlContent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Templates\TestSearchHtmlContent.aspx.designer.cs">
+      <DependentUpon>TestSearchHtmlContent.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\TestSearchPage.aspx.cs">
+      <DependentUpon>TestSearchPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Templates\TestSearchPage.aspx.designer.cs">
+      <DependentUpon>TestSearchPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\TestSearchPageBuilder.aspx.cs">
+      <DependentUpon>TestSearchPageBuilder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Templates\TestSearchPageBuilder.aspx.designer.cs">
+      <DependentUpon>TestSearchPageBuilder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\TestSearchSmartForm.aspx.cs">
+      <DependentUpon>TestSearchSmartForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Templates\TestSearchSmartForm.aspx.designer.cs">
+      <DependentUpon>TestSearchSmartForm.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <Content Include="MappingTests.aspx" />
+    <Content Include="Templates\TestSearchHtmlContent.aspx" />
+    <Content Include="Templates\TestSearchPage.aspx" />
+    <Content Include="Templates\TestSearchPageBuilder.aspx" />
+    <Content Include="Templates\TestSearchSmartForm.aspx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ektron.SharedSource.FluentApi\Ektron.SharedSource.FluentApi.csproj">
