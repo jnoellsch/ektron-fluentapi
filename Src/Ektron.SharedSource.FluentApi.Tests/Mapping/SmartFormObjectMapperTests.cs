@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace Ektron.SharedSource.FluentApi.Tests.Mapping
 {
-    public class SmartFormComplexMapperTests
+    public class SmartFormObjectMapperTests
     {
         [TestFixture]
         public class MapMethod
@@ -20,7 +20,11 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mapping
                                 <Item>
                                     <Value>123</Value>
                                 </Item>
-                            </Sample>"
+                            </Sample>",
+                    XmlConfiguration = new XmlConfigData()
+                    {
+                        Id = 1,
+                    }
                 };
 
                 var result = sut.AsContentType<ComplexParent>();
@@ -43,7 +47,11 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mapping
                                 <Item>
                                     <Value>345</Value>
                                 </Item>
-                            </Sample>"
+                            </Sample>",
+                    XmlConfiguration = new XmlConfigData()
+                    {
+                        Id = 1,
+                    }
                 };
 
                 var result = sut.AsContentType<ComplexEnumerableParent>();
@@ -55,19 +63,19 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mapping
 
             public class ComplexParent
             {
-                [SmartFormComplex("./Item")]
+                [SmartFormObject("./Item")]
                 public ComplexChild Item { get; set; }
             }
 
             public class ComplexChild
             {
-                [SmartFormPrimitive("./Value")]
+                [SmartFormFieldValue("./Value")]
                 public int Value { get; set; }
             }
 
             public class ComplexEnumerableParent
             {
-                [SmartFormComplex("./Item")]
+                [SmartFormObject("./Item")]
                 public IEnumerable<ComplexChild> Items { get; set; }
             }
         }

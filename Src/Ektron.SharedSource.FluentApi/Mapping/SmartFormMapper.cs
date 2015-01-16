@@ -16,8 +16,8 @@ namespace Ektron.SharedSource.FluentApi.Mapping
         /// <returns>An <see cref="Action"/> that maps Smart Form XML elements onto an instance of type T.</returns>
         public static Action<ContentData, T> GetMapping<T>() where T : new()
         {
-            var primitiveMapping = SmartFormPrimitiveMapper.GetMapping<T>();
-            var complexMapping = SmartFormComplexMapper.GetMapping<T>();
+            var primitiveMapping = SmartFormFieldValueMapper.GetMapping<T>();
+            var complexMapping = SmartFormObjectMapper.GetMapping<T>();
 
             return (contentData, t) =>
             {

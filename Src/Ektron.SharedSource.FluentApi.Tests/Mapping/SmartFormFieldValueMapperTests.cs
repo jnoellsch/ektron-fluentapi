@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace Ektron.SharedSource.FluentApi.Tests.Mapping
 {
-    public class SmartFormPrimitiveMapperTests
+    public class SmartFormFieldValueMapperTests
     {
         [TestFixture]
         public class MapMethod
@@ -20,7 +20,11 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mapping
                 {
                     Html = @"<Sample>
                                 <Value>123</Value>
-                            </Sample>"
+                            </Sample>",
+                    XmlConfiguration = new XmlConfigData()
+                    {
+                        Id = 1,
+                    }
                 };
 
                 var result = sut.AsContentType<IntegerResult>();
@@ -36,7 +40,11 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mapping
                     Html = @"<Sample>
                                 <Value>123</Value>
                                 <Value2>234</Value2>
-                            </Sample>"
+                            </Sample>",
+                    XmlConfiguration = new XmlConfigData()
+                    {
+                        Id = 1,
+                    }
                 };
 
                 var result = sut.AsContentType<DerivedIntegerResult>();
@@ -51,7 +59,11 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mapping
                 {
                     Html = @"<Sample>
                                 <Value>123</Value>
-                            </Sample>"
+                            </Sample>",
+                    XmlConfiguration = new XmlConfigData()
+                    {
+                        Id = 1,
+                    }
                 };
 
                 var result = sut.AsContentType<StringResult>();
@@ -69,7 +81,11 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mapping
 
                 var sut = new ContentData
                 {
-                    Html = string.Format(html, now)
+                    Html = string.Format(html, now),
+                    XmlConfiguration = new XmlConfigData()
+                    {
+                        Id = 1,
+                    }
                 };
 
                 var result = sut.AsContentType<DateTimeResult>();
@@ -86,7 +102,11 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mapping
                                 <Value>123</Value>
                                 <Value>234</Value>
                                 <Value>345</Value>
-                            </Sample>"
+                            </Sample>",
+                    XmlConfiguration = new XmlConfigData()
+                    {
+                        Id = 1,
+                    }
                 };
 
                 var result = sut.AsContentType<EnumerableResult>();
@@ -103,7 +123,11 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mapping
                 {
                     Html = @"<Sample>
                                 <Value>1</Value>
-                            </Sample>"
+                            </Sample>",
+                    XmlConfiguration = new XmlConfigData()
+                    {
+                        Id = 1,
+                    }
                 };
 
                 var result = sut.AsContentType<EnumResult>();
@@ -119,7 +143,11 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mapping
                     Html = @"<Sample>
                                 <Value>0</Value>
                                 <Value>1</Value>
-                            </Sample>"
+                            </Sample>",
+                    XmlConfiguration = new XmlConfigData()
+                    {
+                        Id = 1,
+                    }
                 };
 
                 var result = sut.AsContentType<EnumArrayResult>();
@@ -138,7 +166,11 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mapping
                                 <Value>123</Value>
                                 <Value>234</Value>
                                 <Value>345</Value>
-                            </Sample>"
+                            </Sample>",
+                    XmlConfiguration = new XmlConfigData()
+                    {
+                        Id = 1,
+                    }
                 };
 
                 var start = DateTime.Now;
@@ -153,43 +185,43 @@ namespace Ektron.SharedSource.FluentApi.Tests.Mapping
 
             public class IntegerResult
             {
-                [SmartFormPrimitive("./Value")]
+                [SmartFormFieldValue("./Value")]
                 public int Value { get; set; }
             }
 
             public class DerivedIntegerResult : IntegerResult
             {
-                [SmartFormPrimitive("./Value2")]
+                [SmartFormFieldValue("./Value2")]
                 public int Value2 { get; set; }
             }
 
             public class StringResult
             {
-                [SmartFormPrimitive("./Value")]
+                [SmartFormFieldValue("./Value")]
                 public string Value { get; set; }
             }
 
             public class DateTimeResult
             {
-                [SmartFormPrimitive("./Value")]
+                [SmartFormFieldValue("./Value")]
                 public DateTime Value { get; set; }
             }
 
             public class EnumerableResult
             {
-                [SmartFormPrimitive("./Value")]
+                [SmartFormFieldValue("./Value")]
                 public IEnumerable<int> Value { get; set; }
             }
 
             public class EnumResult
             {
-                [SmartFormPrimitive("./Value")]
+                [SmartFormFieldValue("./Value")]
                 public EnumOptions Value { get; set; }
             }
 
             public class EnumArrayResult
             {
-                [SmartFormPrimitive("./Value")]
+                [SmartFormFieldValue("./Value")]
                 public IEnumerable<EnumOptions> Values { get; set; }
             }
 

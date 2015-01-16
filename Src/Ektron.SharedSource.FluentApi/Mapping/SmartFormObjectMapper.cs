@@ -10,9 +10,9 @@ using Ektron.SharedSource.FluentApi.Mapping.Attributes;
 namespace Ektron.SharedSource.FluentApi.Mapping
 {
     /// <summary>
-    /// Provides a mapping complex Smart Form XML elements (i.e. has children) onto a complex object (i.e. has properties of it's own).
+    /// Provides a mapping Smart Form XML elements (i.e. has children) onto a nested custom class (i.e. has properties of it's own).
     /// </summary>
-    internal static class SmartFormComplexMapper
+    internal static class SmartFormObjectMapper
     {
         /// <summary>
         /// Gets a mapping for properties from Smart Form elements to an instance of T.
@@ -26,7 +26,7 @@ namespace Ektron.SharedSource.FluentApi.Mapping
 
             foreach (var propertyInfo in properties)
             {
-                var attribute = propertyInfo.GetCustomAttribute<SmartFormComplexAttribute>();
+                var attribute = propertyInfo.GetCustomAttribute<SmartFormObjectAttribute>();
                 if (attribute == null) continue;
                 if (string.IsNullOrWhiteSpace(attribute.Xpath)) continue;
 
@@ -110,35 +110,35 @@ namespace Ektron.SharedSource.FluentApi.Mapping
         /// <returns>An <see cref="Action"/> that maps the child Smart Form XML elements to the sub-object properties.</returns>
         public static Delegate GetSubMapping(Type complexType)
         {
-            var subMappingMethod = typeof(SmartFormComplexMapper).GetMethod("GetSubMappingGeneric");
+            var subMappingMethod = typeof(SmartFormObjectMapper).GetMethod("GetSubMappingGeneric");
             var genericSubMappingMethod = subMappingMethod.MakeGenericMethod(complexType);
             
             return (Delegate)genericSubMappingMethod.Invoke(null, null);
         }
 
         /// <summary>
-        /// A helper method that ensures primitive and complex Smart Form mappings are created.
+        /// A helper method that ensures field value and object Smart Form mappings are created.
         /// </summary>
         /// <typeparam name="T">The type being mapped to.</typeparam>
-        /// <returns>An <see cref="Action"/> that maps the child Smart Form XML elements to the sub-object properties.</returns>
+        /// <returns>An <see cref="Action"/> that maps the child Smart Form XML elements to the nested object properties.</returns>
         public static Action<XNode, T> GetSubMappingGeneric<T>() where T : new()
         {
             var complexType = typeof(T);
 
-            var primitiveGetMappingMethod = typeof(SmartFormPrimitiveMapper).GetMethod("GetMapping");
-            var genericPrimitiveGetMappingMethod = primitiveGetMappingMethod.MakeGenericMethod(complexType);
+            var fieldValueGetMappingMethod = typeof(SmartFormFieldValueMapper).GetMethod("GetMapping");
+            var genericFieldValueGetMappingMethod = fieldValueGetMappingMethod.MakeGenericMethod(complexType);
 
-            var primitiveMapping = (Action<XNode, T>)genericPrimitiveGetMappingMethod.Invoke(null, null);
+            var fieldValueMapping = (Action<XNode, T>)genericFieldValueGetMappingMethod.Invoke(null, null);
 
-            var complexGetMappingMethod = typeof(SmartFormComplexMapper).GetMethod("GetMapping");
-            var genericComplexGetMappingMethod = complexGetMappingMethod.MakeGenericMethod(complexType);
+            var objectGetMappingMethod = typeof(SmartFormObjectMapper).GetMethod("GetMapping");
+            var genericObjectGetMappingMethod = objectGetMappingMethod.MakeGenericMethod(complexType);
 
-            var complexMapping = (Action<XNode, T>)genericComplexGetMappingMethod.Invoke(null, null);
+            var objectMapping = (Action<XNode, T>)genericObjectGetMappingMethod.Invoke(null, null);
 
             return (xml, t) =>
             {
-                primitiveMapping(xml, t);
-                complexMapping(xml, t);
+                fieldValueMapping(xml, t);
+                objectMapping(xml, t);
             };
         }
     }
