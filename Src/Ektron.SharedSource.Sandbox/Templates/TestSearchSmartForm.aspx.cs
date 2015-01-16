@@ -22,6 +22,8 @@
 
             this.litColor1.Text = model.Color1;
             this.litColor2.Text = model.Color2;
+            this.lvSecondaryColors.DataSource = model.SecondaryColors;
+            this.lvSecondaryColors.DataBind();
         }
     }
 }
