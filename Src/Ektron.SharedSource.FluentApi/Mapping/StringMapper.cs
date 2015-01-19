@@ -43,27 +43,27 @@ namespace Ektron.SharedSource.FluentApi.Mapping
             var genericType = targetType.GetGenericArguments().Single();
             var mapping = GetMapping(genericType);
 
-            var getEnumerableCreator = typeof(StringMapper)
-                .GetMethod("GetEnumerableCreator", BindingFlags.NonPublic | BindingFlags.Static)
+            var enumerableMappingMethod = typeof(StringMapper)
+                .GetMethod("EnumerableMapping", BindingFlags.NonPublic | BindingFlags.Static)
                 .MakeGenericMethod(genericType);
 
             var mappingParam = Expression.Constant(mapping);
             var stringsParam = Expression.Parameter(typeof(IEnumerable<string>), "strings");
-            var methodExpression = Expression.Call(getEnumerableCreator, mappingParam, stringsParam);
+            var methodExpression = Expression.Call(enumerableMappingMethod, mappingParam, stringsParam);
 
-            var lambda = Expression.Lambda<Func<IEnumerable<String>, object>>(methodExpression, stringsParam).Compile();
+            var enumerableMapping = Expression.Lambda<Func<IEnumerable<String>, object>>(methodExpression, stringsParam).Compile();
 
             return values =>
             {
                 if (!values.Any()) return null;
 
-                var obj = lambda(values);
+                var obj = enumerableMapping(values);
 
                 return obj;
             };
         }
 
-        private static object GetEnumerableCreator<T>(Func<string, object> mapping, IEnumerable<string> strings)
+        private static object EnumerableMapping<T>(Func<string, object> mapping, IEnumerable<string> strings)
         {
             return strings.Select(x => (T)mapping(x)).ToList();
         }
