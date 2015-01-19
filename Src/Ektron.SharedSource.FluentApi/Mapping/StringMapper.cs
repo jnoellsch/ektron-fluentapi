@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Xml;
-using System.Xml.Linq;
 
 namespace Ektron.SharedSource.FluentApi.Mapping
 {
@@ -55,7 +53,6 @@ namespace Ektron.SharedSource.FluentApi.Mapping
 
             var lambda = Expression.Lambda<Func<IEnumerable<String>, object>>(methodExpression, stringsParam).Compile();
 
-
             return values =>
             {
                 if (!values.Any()) return null;
@@ -68,7 +65,7 @@ namespace Ektron.SharedSource.FluentApi.Mapping
 
         private static object GetEnumerableCreator<T>(Func<string, object> mapping, IEnumerable<string> strings)
         {
-            return strings.Select(x => (T)mapping(x));
+            return strings.Select(x => (T)mapping(x)).ToList();
         }
 
         /// <summary>

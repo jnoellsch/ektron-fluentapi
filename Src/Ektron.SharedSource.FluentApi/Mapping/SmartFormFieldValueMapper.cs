@@ -59,7 +59,7 @@ namespace Ektron.SharedSource.FluentApi.Mapping
                 var element = xml.XPathSelectElement(xpath);
                 if (element == null) return;
 
-                var text = element.HasElements ? String.Concat(element.Nodes()) : element.Value;
+                var text = GetXmlInnerText(element);
                 var value = mapToPropertyType(text);
 
                 setProperty(t, value);
@@ -83,11 +83,16 @@ namespace Ektron.SharedSource.FluentApi.Mapping
                 var elements = xml.XPathSelectElements(xpath).ToList();
                 if (!elements.Any()) return;
 
-                var rawValues = elements.Select(x => x.Value);
+                var rawValues = elements.Select(GetXmlInnerText);
                 var values = mapToPropertyType(rawValues);
 
                 setProperty(t, values);
             };
+        }
+
+        private static string GetXmlInnerText(XElement element)
+        {
+            return element.HasElements ? String.Concat(element.Nodes()) : element.Value;
         }
     }
 }
