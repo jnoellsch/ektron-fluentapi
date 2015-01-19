@@ -13,7 +13,8 @@
         /// <param name="criteria">The criteria to extend.</param>
         /// <param name="expressions">The set of expressions to be individually ANDed to the criteria.</param>
         /// <returns>The updated criteria.</returns>
-        public static SearchCriteria And(this SearchCriteria criteria, params Expression[] expressions)
+        public static T And<T>(this T criteria, params Expression[] expressions)
+            where T : SearchCriteria
         {
             criteria.ExpressionTree = ExpressionExtensions.And(criteria.ExpressionTree, expressions);
             return criteria;
@@ -27,10 +28,8 @@
         /// <param name="folderManager">A <see cref="FolderManager"/> instance from which to query the folders.</param>
         /// <param name="folderIds">The set of folder IDs to restrict results to (recursive).</param>
         /// <returns>The updated criteria.</returns>
-        public static SearchCriteria AndFolders(
-            this SearchCriteria criteria,
-            FolderManager folderManager,
-            params long[] folderIds)
+        public static T AndFolders<T>(this T criteria, FolderManager folderManager, params long[] folderIds)
+            where T : SearchCriteria
         {
             return criteria.And(ExpressionFactory.Create(folderManager, folderIds));
         }
@@ -42,7 +41,8 @@
         /// <param name="criteria">The criteria to extend.</param>
         /// <param name="smartFormIds">The set of SmartForm IDs to restrict results to.</param>
         /// <returns>The updated criteria.</returns>
-        public static SearchCriteria AndSmartForms(this SearchCriteria criteria, params long[] smartFormIds)
+        public static T AndSmartForms<T>(this T criteria, params long[] smartFormIds)
+            where T : SearchCriteria
         {
             return criteria.And(ExpressionFactory.CreateSmartFormExpression(smartFormIds));
         }
@@ -55,10 +55,8 @@
         /// <param name="taxonomyManager">A <see cref="TaxonomyManager"/> instance from qhich to query the taxonomies.</param>
         /// <param name="taxonomyIds">The set of taxonomy IDs to restrict results to.</param>
         /// <returns>The updated criteria.</returns>
-        public static SearchCriteria AndTaxonomy(
-            this SearchCriteria criteria,
-            TaxonomyManager taxonomyManager,
-            params long[] taxonomyIds)
+        public static T AndTaxonomy<T>(this T criteria, TaxonomyManager taxonomyManager, params long[] taxonomyIds)
+            where T : SearchCriteria
         {
             return criteria.And(ExpressionFactory.Create(taxonomyManager, taxonomyIds));
         }
@@ -69,7 +67,8 @@
         /// </summary>
         /// <param name="criteria">The criteria to extend.</param>
         /// <returns>The updated criteria.</returns>
-        public static SearchCriteria EnableRefinement(this SearchCriteria criteria)
+        public static T EnableRefinement<T>(this T criteria)
+            where T : SearchCriteria
         {
             criteria.Refinement.IsEnabled = true;
             return criteria;
@@ -81,7 +80,8 @@
         /// <param name="criteria">The criteria to extend.</param>
         /// <param name="expressions">The set of expressions to be individually ORed to the criteria.</param>
         /// <returns>The updated criteria.</returns>
-        public static SearchCriteria Or(this SearchCriteria criteria, params Expression[] expressions)
+        public static T Or<T>(this T criteria, params Expression[] expressions)
+            where T : SearchCriteria
         {
             criteria.ExpressionTree = ExpressionExtensions.Or(criteria.ExpressionTree, expressions);
             return criteria;
@@ -94,7 +94,8 @@
         /// <param name="criteria">The criteria to extend.</param>
         /// <param name="propertyExpressions">The set of property expressions to be added to as refinements.</param>
         /// <returns>The updated criteria.</returns>
-        public static SearchCriteria RefineBy(this SearchCriteria criteria, params PropertyExpression[] propertyExpressions)
+        public static T RefineBy<T>(this T criteria, params PropertyExpression[] propertyExpressions)
+            where T : SearchCriteria
         {
             criteria.EnableRefinement();
 
@@ -132,9 +133,8 @@
         /// <param name="criteria">The criteria to extend.</param>
         /// <param name="propertyExpressions"></param>
         /// <returns>The updated criteria.</returns>
-        public static SearchCriteria RefineMultiValueBy(
-            this SearchCriteria criteria,
-            params StringPropertyExpression[] propertyExpressions)
+        public static T RefineMultiValueBy<T>(this T criteria, params StringPropertyExpression[] propertyExpressions)
+            where T : SearchCriteria
         {
             foreach (var propertyExpression in propertyExpressions)
             {
@@ -152,9 +152,8 @@
         /// <param name="criteria">The criteria to extend.</param>
         /// <param name="propertyExpressions">The search properties to return in each search result.</param>
         /// <returns>The updated criteria.</returns>
-        public static SearchCriteria ReturnsWith(
-            this SearchCriteria criteria,
-            params PropertyExpression[] propertyExpressions)
+        public static T ReturnsWith<T>(this T criteria, params PropertyExpression[] propertyExpressions)
+            where T : SearchCriteria
         {
             foreach (var propertyExpression in propertyExpressions)
             {
