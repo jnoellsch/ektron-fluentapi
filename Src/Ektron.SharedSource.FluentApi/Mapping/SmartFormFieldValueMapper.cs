@@ -83,7 +83,7 @@ namespace Ektron.SharedSource.FluentApi.Mapping
                 var elements = xml.XPathSelectElements(xpath).ToList();
                 if (!elements.Any()) return;
 
-                var rawValues = elements.Select(GetXmlInnerText);
+                var rawValues = elements.Select(GetXmlInnerText).ToList();
                 var values = mapToPropertyType(rawValues);
 
                 setProperty(t, values);
