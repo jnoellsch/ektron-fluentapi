@@ -2,6 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace Ektron.SharedSource.FluentApi.Mapping
 {
@@ -39,26 +43,32 @@ namespace Ektron.SharedSource.FluentApi.Mapping
         public static Func<IEnumerable<string>, object> GetEnumerableMapping(Type targetType)
         {
             var genericType = targetType.GetGenericArguments().Single();
-            var genericMapping = GetMapping(genericType);
+            var mapping = GetMapping(genericType);
 
-            var listType = typeof(List<>);
-            var constructedListType = listType.MakeGenericType(genericType);
+            var getEnumerableCreator = typeof(StringMapper)
+                .GetMethod("GetEnumerableCreator", BindingFlags.NonPublic | BindingFlags.Static)
+                .MakeGenericMethod(genericType);
 
-            var addMethod = constructedListType.GetMethod("Add");
+            var mappingParam = Expression.Constant(mapping);
+            var stringsParam = Expression.Parameter(typeof(IEnumerable<string>), "strings");
+            var methodExpression = Expression.Call(getEnumerableCreator, mappingParam, stringsParam);
+
+            var lambda = Expression.Lambda<Func<IEnumerable<String>, object>>(methodExpression, stringsParam).Compile();
+
 
             return values =>
             {
                 if (!values.Any()) return null;
 
-                var instance = Activator.CreateInstance(constructedListType);
+                var obj = lambda(values);
 
-                foreach (var value in values)
-                {
-                    addMethod.Invoke(instance, new[] {genericMapping(value)});
-                }
-
-                return instance;
+                return obj;
             };
+        }
+
+        private static object GetEnumerableCreator<T>(Func<string, object> mapping, IEnumerable<string> strings)
+        {
+            return strings.Select(x => (T)mapping(x));
         }
 
         /// <summary>

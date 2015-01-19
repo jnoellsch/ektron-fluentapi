@@ -53,18 +53,22 @@ namespace Ektron.SharedSource.FluentApi.Mapping
         public static Action<XNode, T> GetSingleMapping<T>(PropertyInfo propertyInfo, string xpath) where T : new()
         {
             var propertyType = propertyInfo.PropertyType;
-            var subMapping = GetSubMapping(propertyType);
             var setter = ExpressionUtil.GetPropertySetter<T>(propertyInfo);
+
+            var getObjectCreatorMethod = typeof(SmartFormObjectMapper)
+                .GetMethod("GetObjectCreator", BindingFlags.NonPublic | BindingFlags.Static)
+                .MakeGenericMethod(propertyType);
+
+            var objectCreator = ExpressionUtil.GetMappingFromMethod<XNode>(getObjectCreatorMethod);
 
             return (xml, t) =>
             {
                 var element = xml.XPathSelectElement(xpath);
                 if (element == null) return;
 
-                var complexType = Activator.CreateInstance(propertyType);
-                subMapping.GetMethodInfo().Invoke(subMapping.Target, new[] { element, complexType });
+                var obj = objectCreator(element);
 
-                setter(t, complexType);
+                setter(t, obj);
             };
         }
 
@@ -78,68 +82,46 @@ namespace Ektron.SharedSource.FluentApi.Mapping
         public static Action<XNode, T> GetEnumerableMapping<T>(PropertyInfo propertyInfo, string xpath) where T : new()
         {
             var propertyType = propertyInfo.PropertyType.GetGenericArguments().First();
-            var listType = typeof(List<>);
-            var constructedListType = listType.MakeGenericType(propertyType);
-            var addMethod = constructedListType.GetMethod("Add");
-            var subMapping = GetSubMapping(propertyType);
             var setProperty = ExpressionUtil.GetPropertySetter<T>(propertyInfo);
+
+            var getObjectCreatorMethod = typeof(SmartFormObjectMapper)
+                .GetMethod("GetEnumerableObjectCreator", BindingFlags.NonPublic | BindingFlags.Static)
+                .MakeGenericMethod(propertyType);
+
+            var objectCreator = ExpressionUtil.GetMappingFromMethod<IEnumerable<XNode>>(getObjectCreatorMethod);
 
             return (xml, t) =>
             {
                 var elements = xml.XPathSelectElements(xpath).ToList();
                 if (!elements.Any()) return;
 
-                var listInstance = Activator.CreateInstance(constructedListType);
+                var obj = objectCreator(elements);
 
-                foreach (var element in elements)
-                {
-                    var complexType = Activator.CreateInstance(propertyType);
-                    subMapping.GetMethodInfo().Invoke(subMapping.Target, new[] { element, complexType });
-
-                    addMethod.Invoke(listInstance, new[] { complexType });
-                }
-
-                setProperty(t, listInstance);
+                setProperty(t, obj);
             };
         }
 
-        /// <summary>
-        /// Gets a mapping for mapping Smart Form data onto the sub-object.
-        /// </summary>
-        /// <param name="complexType">The <see cref="Type"/> of the sub-object.</param>
-        /// <returns>An <see cref="Action"/> that maps the child Smart Form XML elements to the sub-object properties.</returns>
-        public static Delegate GetSubMapping(Type complexType)
+        private static Func<XNode, T> GetObjectCreator<T>() where T : new()
         {
-            var subMappingMethod = typeof(SmartFormObjectMapper).GetMethod("GetSubMappingGeneric");
-            var genericSubMappingMethod = subMappingMethod.MakeGenericMethod(complexType);
-            
-            return (Delegate)genericSubMappingMethod.Invoke(null, null);
-        }
+            var fieldValueMapping = SmartFormFieldValueMapper.GetMapping<T>();
+            var objectMapping = GetMapping<T>();
 
-        /// <summary>
-        /// A helper method that ensures field value and object Smart Form mappings are created.
-        /// </summary>
-        /// <typeparam name="T">The type being mapped to.</typeparam>
-        /// <returns>An <see cref="Action"/> that maps the child Smart Form XML elements to the nested object properties.</returns>
-        public static Action<XNode, T> GetSubMappingGeneric<T>() where T : new()
-        {
-            var complexType = typeof(T);
-
-            var fieldValueGetMappingMethod = typeof(SmartFormFieldValueMapper).GetMethod("GetMapping");
-            var genericFieldValueGetMappingMethod = fieldValueGetMappingMethod.MakeGenericMethod(complexType);
-
-            var fieldValueMapping = (Action<XNode, T>)genericFieldValueGetMappingMethod.Invoke(null, null);
-
-            var objectGetMappingMethod = typeof(SmartFormObjectMapper).GetMethod("GetMapping");
-            var genericObjectGetMappingMethod = objectGetMappingMethod.MakeGenericMethod(complexType);
-
-            var objectMapping = (Action<XNode, T>)genericObjectGetMappingMethod.Invoke(null, null);
-
-            return (xml, t) =>
+            return xml =>
             {
-                fieldValueMapping(xml, t);
-                objectMapping(xml, t);
+                var obj = new T();
+
+                fieldValueMapping(xml, obj);
+                objectMapping(xml, obj);
+
+                return obj;
             };
+        }
+
+        private static Func<IEnumerable<XNode>, IEnumerable<T>> GetEnumerableObjectCreator<T>() where T : new()
+        {
+            var creator = GetObjectCreator<T>();
+
+            return xmls => xmls.Select(x => creator(x));
         }
     }
 }

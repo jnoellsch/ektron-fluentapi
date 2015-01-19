@@ -37,5 +37,13 @@ namespace Ektron.SharedSource.FluentApi.Mapping
 
             return Expression.Lambda<Action<T, object>>(setBody, tParam, valueParam).Compile();
         }
+
+        public static Func<T, object> GetMappingFromMethod<T>(MethodInfo methodInfo)
+        {
+            var methodCallExpression = Expression.Call(methodInfo);
+            var getMapping = Expression.Lambda<Func<Func<T, object>>>(methodCallExpression).Compile();
+            var mapping = getMapping();
+            return mapping;
+        }
     }
 }
