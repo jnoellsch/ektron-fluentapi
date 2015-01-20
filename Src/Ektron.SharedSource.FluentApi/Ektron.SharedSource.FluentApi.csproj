@@ -89,10 +89,12 @@
     <Compile Include="FilterMenu.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Mapping\Attributes\SmartFormAttributeAttribute.cs" />
     <Compile Include="Mapping\ContentDataMapper.cs" />
     <Compile Include="Mapping\Mapper.cs" />
     <Compile Include="Mapping\ExpressionUtil.cs" />
     <Compile Include="Mapping\MetadataMapper.cs" />
+    <Compile Include="Mapping\SmartFormAttributeMapper.cs" />
     <Compile Include="Mapping\SmartFormObjectMapper.cs" />
     <Compile Include="Mapping\SmartFormMapper.cs" />
     <Compile Include="Mapping\SmartFormFieldValueMapper.cs" />

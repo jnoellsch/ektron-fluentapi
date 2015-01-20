@@ -87,6 +87,7 @@
     <Compile Include="ContentCollectionCriteriaTests.cs" />
     <Compile Include="ContentCriteriaTests.cs" />
     <Compile Include="FilterTaxonomyTests.cs" />
+    <Compile Include="Mapping\SmartFormAttributeMapperTests.cs" />
     <Compile Include="SearchCriteriaTests.cs" />
     <Compile Include="TaxonomyCriteriaTests.cs" />
     <Compile Include="Mapping\ContentDataMapperTests.cs" />

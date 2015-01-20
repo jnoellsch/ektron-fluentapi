@@ -17,6 +17,7 @@ namespace Ektron.SharedSource.FluentApi.Mapping
         public static Action<ContentData, T> GetMapping<T>() where T : new()
         {
             var primitiveMapping = SmartFormFieldValueMapper.GetMapping<T>();
+            var attributeMapping = SmartFormAttributeMapper.GetMapping<T>();
             var complexMapping = SmartFormObjectMapper.GetMapping<T>();
 
             return (contentData, t) =>
@@ -27,6 +28,7 @@ namespace Ektron.SharedSource.FluentApi.Mapping
                 var xml = XDocument.Parse(contentData.Html).Root;
 
                 primitiveMapping(xml, t);
+                attributeMapping(xml, t);
                 complexMapping(xml, t);
             };
         }
